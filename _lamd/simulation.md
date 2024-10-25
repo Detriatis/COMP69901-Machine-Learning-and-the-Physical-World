@@ -143,96 +143,13 @@ This broad class of physical models, or 'natural laws' is probably the closest t
 
 \include{_physics/includes/simulation-scales.md}
 
-\subsection{Accelerate Programme}
+\subsection{How Machine Learning Can Help}
 
-\slides{* Computer Lab hosts Accelerate Programme for Scientific Discovery
-* Use ML techniques to deliver scientific advances
-* Four DECAF fellows: MPhil Projects Available!}
+\notes{Machine learning models can often capture some of the regularities of the system that we find in these mergent properties. They do so, not from first principles, but from analysis of the data. In the Atomic Human, I argue that this has more in common with how human intellience solves problems than through first-principles modelling. When it comes to ML and the PHysical World, the aim is to use machine learning models alongside simulations to get the best of both worlds.}
 
-\notes{The Computer Lab is hosting a new initiative, funded by Schmidt Futures, known as the [Accelerate Programme for Scientific Discovery](https://acceleratescience.github.io/). The aim is to address scientific challenges, and accelerate the progress of research, through using tools in machine learning.}
+\addatomic{}
 
-\notes{We now have four fellows appointed, each of whom works at the interface of machine learning and scientific discovery. They are using the ideas around machine learning modelling to drive their scientific research.}
-
-\notes{For example, [Bingqing Cheng](https://acceleratescience.github.io/team/bingqing-cheng.html), one of the Department's former DECAF Fellows has used neural network accelerated molecular dynamics simulations to understand a new form of metallic hydrogen, likely to occur at the heart of stars [@Cheng-evidence20]. The University's [press release is here](https://www.cam.ac.uk/research/news/ai-shows-how-hydrogen-becomes-a-metal-inside-giant-planets).}
-
-\notes{On her website Bingqing quotes Paul Dirac.}
-
-\newslide{Bingqing Cheng quoting Paul Dirac}
-
-> The fundamental laws necessary for the mathematical treatment of a large part of physics and the whole of chemistry are thus completely known, and the difficulty lies only in the fact that application of these laws leads to equations that are too complex to be solved. 
-
-\newslide{}
-
-> ..approximate practical methods of applying quantum mechanics should be developed, which can lead to an explanation of the main features of complex atomic systems without too much computation.  
->
->--- Paul Dirac (6 April 1929)
-
-\notes{Bingqing moved to a position at IST Austria and then [on to Berkeley](https://chemistry.berkeley.edu/people/bingqing-cheng).}
-
-\newslide{Accelerate Fellows}
-
-\centerdiv{\challengerMishraPicture{15%}\soumyaBanerjeePicture{15%}\samNallaperumaPicture{15%}}
-
-\notes{Our four current Accelerate fellows are [Challenger Mishra](https://acceleratescience.github.io/team/challenger-mishra.html), a physicist interested in string theory and quantizing gravity. [Sarah Morgan](https://acceleratescience.github.io/team/sarah-morgan.html) from the Brain Mapping Unit, who is focused on predicting psychosis trajectories, [Soumya Bannerjee](https://acceleratescience.github.io/team/soumya-banerjee.html) who focuses on complex systems and healthcare and [Sam Nallaperuma](https://acceleratescience.github.io/team/sam-nallaperuma.html) who the interface of machine learning and biology with particular interests in emergent behavior in complex systems.}
-
-\notes{For those interested in Part III/MPhil projects, you can see their project suggestions on [this page](https://mlatcl.github.io/internal/projects/).}
-
-\section{Related Approaches}
-
-\notes{While this module is mainly focusing on emulation as a route to bringing machine learning closer to the physical world, I don't want to give the impression that's the only approach. It's worth bearing in mind three important domains of machine learning (and statistics) that we also could have explored.}
-
-* Probabilistic Programming
-* Approximate Bayesian Computation
-* Causal inference
-
-\notes{Each of these domains also brings a lot to the table in terms of understanding the physical world.}
-
-\subsection{Probabilistic Programming}
-\slides{* Dates back to BUGS
-* Modern descendent (same spirit) is Stan
-* Also languages like pyro (based on PyTorch)
-}
-
-\notes{Probabilistic programming is an idea that, from our perspective, can be summarized as follows. What if, when constructing your simulator, or your model, you used a programming language that was aware of the state variables and the probability distributions. What if this language could 'compile' the program into code that would automatically compute the Bayesian posterior for you?
-
-This is the objective of probabilistic programming. The idea is that you write your model in a language, and that language is automatically converted into the different modelling codes you need to perform Bayesian inference.
-
-The ideas for probabilistic programming originate in [BUGS](https://www.mrc-bsu.cam.ac.uk/software/bugs/). The software was developed at the MRC Biostatistics Unit here in Cambridge in the early 1990s, by among others, [Sir David Spiegelhalter](https://en.wikipedia.org/wiki/David_Spiegelhalter). Carl Henrik covered in last week's lecture some of the approaches for approximate inference. BUGS uses Gibbs sampling. Gibbs sampling, however, can be slow to converge when there are strong correlations in the posterior between variables. 
-
-The descendent of BUGS that is probably most similar in the spirit of its design is [Stan](https://mc-stan.org/). Stan came from researchers at Columbia University and makes use of a variant of Hamiltonian Monte Carlo called the No-U-Turn sampler. It builds on automatic differentiation for the gradients it needs. It's all written in C++ for speed, but has interfaces to Python, R, Julia, MATLAB etc. Stan has been highly successful during the Coronavirus pandemic, with a number of epidemiological simulations written in the language, for example see this [blog post](https://mc-stan.org/users/documentation/case-studies/boarding_school_case_study.html).}
-
-\notes{Other probabilistic programming languages of interest include those that make use of variational approaches (such as [pyro](https://pyro.ai/)) and allow use of neural network components.}
-
-\notes{One important probabilistic programming language being developed is [Turing](https://turinglang.org/stable/), one of the key developers is  [Hong Ge](https://mlg.eng.cam.ac.uk/hong/) who is a Senior Research Associate in Cambridge Engineering.}
- 
-\subsection{Approximate Bayesian Computation}
-
-\notes{We reintroduced Gaussian processes at the start of this lecture by sampling from the Gaussian process and matching the samples to data, discarding those that were distant from our observations. This approach to Bayesian inference is the starting point for *approximate Bayesian computation* or ABC.}
-
-\notes{The idea is straightforward, if we can measure 'closeness' in some relevant fashion, then we can sample from our simulation, compare our samples to real world data through 'closeness measure' and eliminate samples that are distant from our data. Through appropriate choice of closeness measure, our samples can be viewed as coming from an approximate posterior.}
-
-\notes{My Sheffield colleague, Rich Wilkinson, was one of the pioneers of this approach during his PhD in the Statslab here in Cambridge. You can hear Rich talking about ABC at NeurIPS in 2013 here.}
-
-\figure{\includeyoutube{sssbLkn2JjI}{600}{450}}{Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013. Unfortunately, they've not synchronised the slides with the tutorial. You can find the slides [separately here](http://media.nips.cc/Conferences/2013/Video/Tutorial2B.pdf).}{rich-wilkinson-abc}
-
-
-\subsection{Causality}
-
-\figure{\includeyoutube{yksduYxEusQ}{600}{450}}{Judea Pearl and Elias Bareinboim giving a Tutorial on Causality at NeurIPS in 2013. Again, the slides aren't synchronised, but you can find them separately [here](http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf).}{judea-pearl-causality}
-
-\notes{All these approaches offer a lot of promise for developing machine learning at the interface with science but covering each in detail would require four separate modules. We've chosen to focus on the emulation approach, for two principal reasons. Firstly, it's conceptual simplicity. Our aim is to replace all or part of our simulation with a machine learning model. Typically, we're going to want uncertainties as part of that representation. That explains our focus on Gaussian process models. Secondly, the emulator method is flexible. Probabilistic programming requires that the simulator has been built in a particular way, otherwise we can't compile the program. Finally, the emulation approach can be combined with any of the existing simulation approaches. For example, we might want to write our emulators as probabilistic programs. Or we might do causal analysis on our emulators, or we could speed up the simulation in ABC through emulation.} 
-
-\section{Conclusion}
-\slides{* Introduced simulator: body of computer code.
-* Emergent properties
-* Abstractions
-* Levels of fidelity}
-
-\notes{We've introduced the notion of a simulator. A body of computer code that expresses our understanding of a particular physical system. We introduced such simulators through *physical laws*, such as laws of gravitation or electro-magnetism. But we soon saw that in many simulations those laws become abstracted, and the simulation becomes more phenomological.}
-
-\notes{Even full knowledge of all laws does not give us access to 'the mind of God', because we are lacking information about the data, and we are missing the compute. These challenges further motivate the need for abstraction, and we've seen examples of where such abstractions are used in practice.}
-
-\notes{The example of Conway's Game of Life highlights how complex emergent phenomena can require significant computation to explore.}
+\reading
 
 \thanks
 
