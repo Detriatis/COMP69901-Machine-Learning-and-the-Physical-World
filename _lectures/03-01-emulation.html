@@ -82,7 +82,163 @@ class="uri">https://github.com/lawrennd/mlai</a></p>
 <p>Once <code>mlai</code> is installed, it can be imported in the usual
 manner.</p>
 <div class="sourceCode" id="cb4"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlai <span class="im">import</span> plot</span></code></pre></div>
+<h2 id="accelerate-programme">Accelerate Programme</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_ml/includes/accelerate-programme.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_ml/includes/accelerate-programme.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>The Computer Lab is hosting a new initiative, funded by Schmidt
+Futures, known as the <a
+href="https://acceleratescience.github.io/">Accelerate Programme for
+Scientific Discovery</a>. The aim is to address scientific challenges,
+and accelerate the progress of research, through using tools in machine
+learning.</p>
+<p>We now have four fellows appointed, each of whom works at the
+interface of machine learning and scientific discovery. They are using
+the ideas around machine learning modelling to drive their scientific
+research.</p>
+<p>For example, <a
+href="https://acceleratescience.github.io/team/bingqing-cheng.html">Bingqing
+Cheng</a>, one of the Department’s former DECAF Fellows has used neural
+network accelerated molecular dynamics simulations to understand a new
+form of metallic hydrogen, likely to occur at the heart of stars <span
+class="citation" data-cites="Cheng-evidence20">(Cheng et al.,
+2020)</span>. The University’s <a
+href="https://www.cam.ac.uk/research/news/ai-shows-how-hydrogen-becomes-a-metal-inside-giant-planets">press
+release is here</a>.</p>
+<h1 id="related-approaches">Related Approaches</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_ml/includes/related-approaches.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_ml/includes/related-approaches.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>While this module is mainly focusing on emulation as a route to
+bringing machine learning closer to the physical world, I don’t want to
+give the impression that’s the only approach. It’s worth bearing in mind
+three important domains of machine learning (and statistics) that we
+also could have explored.</p>
+<ul>
+<li>Probabilistic Programming</li>
+<li>Approximate Bayesian Computation</li>
+<li>Causal inference</li>
+</ul>
+<p>Each of these domains also brings a lot to the table in terms of
+understanding the physical world.</p>
+<h2 id="probabilistic-programming">Probabilistic Programming</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_ml/includes/probabilistic-programming.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_ml/includes/probabilistic-programming.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>Probabilistic programming is an idea that, from our perspective, can
+be summarized as follows. What if, when constructing your simulator, or
+your model, you used a programming language that was aware of the state
+variables and the probability distributions. What if this language could
+‘compile’ the program into code that would automatically compute the
+Bayesian posterior for you?</p>
+<p>This is the objective of probabilistic programming. The idea is that
+you write your model in a language, and that language is automatically
+converted into the different modelling codes you need to perform
+Bayesian inference.</p>
+<p>The ideas for probabilistic programming originate in <a
+href="https://www.mrc-bsu.cam.ac.uk/software/bugs/">BUGS</a>. The
+software was developed at the MRC Biostatistics Unit here in Cambridge
+in the early 1990s, by among others, <a
+href="https://en.wikipedia.org/wiki/David_Spiegelhalter">Sir David
+Spiegelhalter</a>. Carl Henrik covered in last week’s lecture some of
+the approaches for approximate inference. BUGS uses Gibbs sampling.
+Gibbs sampling, however, can be slow to converge when there are strong
+correlations in the posterior between variables.</p>
+<h2 id="approximate-bayesian-computation">Approximate Bayesian
+Computation</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_ml/includes/approximate-bayesian-computation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_ml/includes/approximate-bayesian-computation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>We reintroduced Gaussian processes at the start of this lecture by
+sampling from the Gaussian process and matching the samples to data,
+discarding those that were distant from our observations. This approach
+to Bayesian inference is the starting point for <em>approximate Bayesian
+computation</em> or ABC.</p>
+<p>The idea is straightforward, if we can measure ‘closeness’ in some
+relevant fashion, then we can sample from our simulation, compare our
+samples to real world data through ‘closeness measure’ and eliminate
+samples that are distant from our data. Through appropriate choice of
+closeness measure, our samples can be viewed as coming from an
+approximate posterior.</p>
+<p>My Sheffield colleague, Rich Wilkinson, was one of the pioneers of
+this approach during his PhD in the Statslab here in Cambridge. You can
+hear Rich talking about ABC at NeurIPS in 2013 here.</p>
+<div class="figure">
+<div id="rich-wilkinson-abc-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/sssbLkn2JjI?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+<div id="rich-wilkinson-abc-magnify" class="magnify"
+onclick="magnifyFigure(&#39;rich-wilkinson-abc&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="rich-wilkinson-abc-caption" class="caption-frame">
+<p>Figure: Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013.
+Unfortunately, they’ve not synchronised the slides with the tutorial.
+You can find the slides <a
+href="http://media.nips.cc/Conferences/2013/Video/Tutorial2B.pdf">separately
+here</a>.</p>
+</div>
+</div>
+<h2 id="causality">Causality</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_ml/includes/causality-section.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_ml/includes/causality-section.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<div class="figure">
+<div id="judea-pearl-causality-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/yksduYxEusQ?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+<div id="judea-pearl-causality-magnify" class="magnify"
+onclick="magnifyFigure(&#39;judea-pearl-causality&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="judea-pearl-causality-caption" class="caption-frame">
+<p>Figure: Judea Pearl and Elias Bareinboim giving a Tutorial on
+Causality at NeurIPS in 2013. Again, the slides aren’t synchronised, but
+you can find them separately <a
+href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf">here</a>.</p>
+</div>
+</div>
+<p>All these approaches offer a lot of promise for developing machine
+learning at the interface with science but covering each in detail would
+require four separate modules. We’ve chosen to focus on the emulation
+approach, for two principal reasons. Firstly, it’s conceptual
+simplicity. Our aim is to replace all or part of our simulation with a
+machine learning model. Typically, we’re going to want uncertainties as
+part of that representation. That explains our focus on Gaussian process
+models. Secondly, the emulator method is flexible. Probabilistic
+programming requires that the simulator has been built in a particular
+way, otherwise we can’t compile the program. Finally, the emulation
+approach can be combined with any of the existing simulation approaches.
+For example, we might want to write our emulators as probabilistic
+programs. Or we might do causal analysis on our emulators, or we could
+speed up the simulation in ABC through emulation.</p>
+<p>We’ve introduced the notion of a simulator. A body of computer code
+that expresses our understanding of a particular physical system. We
+introduced such simulators through <em>physical laws</em>, such as laws
+of gravitation or electro-magnetism. But we soon saw that in many
+simulations those laws become abstracted, and the simulation becomes
+more phenomological.</p>
+<p>Even full knowledge of all laws does not give us access to ‘the mind
+of God’, because we are lacking information about the data, and we are
+missing the compute. These challenges further motivate the need for
+abstraction, and we’ve seen examples of where such abstractions are used
+in practice.</p>
+<p>The example of Conway’s Game of Life highlights how complex emergent
+phenomena can require significant computation to explore.</p>
 <h1 id="emulation">Emulation</h1>
 <p>There are a number of ways we can use machine learning to accelerate
 scientific discovery. But one way is to have the machine learning model
@@ -118,6 +274,13 @@ data-cites="Lawrence-atomic24">(Lawrence, 2024)</span>.</p>
 </div>
 <p>What follows is a quote form Chapter 6, which introduces Laplace’s
 gremlin and its consequences.</p>
+<h2 id="deep-thought-and-the-challenge-of-computation">Deep Thought and
+the Challenge of Computation</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/deep-thought-simulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/deep-thought-simulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
 <p>In Douglas Adams’s <em>Hitchhiker’s Guide to the Galaxy</em> the
 computer Deep Thought is asked to provide the answer to the ‘great
 question’ of ‘life, the universe and everything’. After seven and a half
@@ -140,7 +303,7 @@ is reluctant to give its creators the answer.</p>
 Chapter 27</p>
 </blockquote>
 <p>After a period of shock from the questioners, the machine goes on to
-explain.</p>
+explain:</p>
 <blockquote>
 <p>‘I checked it very thoroughly,’ said the computer, ‘and that quite
 definitely is the answer. I think the problem, to be quite honest with
@@ -231,31 +394,41 @@ discover, just as Laplace’s and Dirac’s quotes suggest. The objective in
 surrogate modelling is to harness machine learning models to learn those
 physical characteristics.</p>
 <h2 id="types-of-simulations">Types of Simulations</h2>
-<p>We’ve introduced simulations from the perspective of laws of physics.
-In practice, many simulations may not directly encode for the laws of
-physics, but they might encode expert intuitions about a problem (like
-Pooh’s intuition about hooshing).</p>
-<p>For example, in Formula 1 races, the cars have tyres that wear at
-different rates. Softer tyres allow the cars to drive faster but wear
-quicker. Harder tyres man the car drives slower but they last longer.
-Changing between tyres is part of the race, and it has a time penalty.
-Before each race the teams decide what their strategy will be with tyre
-changes. It’s not only how many tyre changes that are important, but
-when they happen. If you change your tyre early, you might get a speed
-advantage and be able to pass your rival when they change their tyre
-later. This is a trick known as ‘undercutting’, but if your early change
-puts you back onto the track behind other slower cars, you will lose
-this advantage.</p>
-<p>Formula 1 teams determine their strategy through simulating the race.
-Each team knows how fast other teams are around the track, and what
-their top speeds are. So, the teams simulate many thousands or millions
-of races with different strategies for their rivals, and they choose the
-strategy for which they maximize their number of expected points.</p>
-<p>When many simulations are done, the results take time to come. During
-the actual race, the simulations are too slow to provide the real time
-information teams would need. In this case F1 teams can use emulators,
-models that have learnt the effect of the simulations, to give real time
-updates.</p>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/simulation-types.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/simulation-types.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<h3 id="differential-equation-models">Differential Equation Models</h3>
+<p>Differential equation models form the backbone of many scientific
+simulations. These can be either abstracted, like epidemiological models
+that treat populations as continuous quantities, or fine-grained like
+climate models that solve complex systems of equations. These models are
+based on mathematical representations of physical laws or system
+behavior and often require sophisticated numerical methods for their
+solution.</p>
+<h3 id="discrete-event-simulations">Discrete Event Simulations</h3>
+<p>Discrete event simulations come in two main varieties. Turn-based
+simulations, like Conway’s Game of Life or Formula 1 strategy
+simulations, update their state at regular intervals. Event-driven
+simulations, like the Gillespie algorithm used in chemical models,
+advance time to the next event, which might occur at irregular
+intervals. Both approaches are particularly useful when studying systems
+that change state at distinct moments rather than continuously.</p>
+<h3 id="software-system-simulations">Software System Simulations</h3>
+<p>A third important category is software system simulation,
+particularly relevant in modern computing environments. These
+simulations allow testing of production code systems, enabling “what if”
+scenarios and counterfactual analysis. They might involve rerunning
+entire codebases with simulated inputs, which is particularly valuable
+when dealing with complex systems with multiple interacting
+components.</p>
+<h2 id="f1-and-fidelity">F1 and Fidelity</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/f1-simulation-fidelity.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/f1-simulation-fidelity.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
 <p>Formula 1 race simulations contain assumptions that derive from
 physics but don’t directly encode the physical laws. For example, if one
 car is stuck behind another, in any given lap, it might overtake. A
@@ -273,7 +446,6 @@ completed a new simulation, how it was going. He replied that things had
 started out well, but over time its performance was degrading. We
 discussed this for a while and over time a challenge of mis-specified
 granularity emerged.</p>
-<h2 id="fidelity-of-the-simulation">Fidelity of the Simulation</h2>
 <p>The engineer explained how there’d been a race where the simulation
 had suggested that their main driver <em>shouldn’t</em> pit because he
 would have emerged behind a car with a slower lap speed, but a high
@@ -306,6 +478,15 @@ the car in the wind tunnel and using computational fluid dynamics
 representations of the Navier-Stokes equations. That level of fidelity
 <em>is</em> appropriate when designing the aerodynamic components of the
 car, but inappropriate when building a strategy simulation.</p>
+<p>The original overtaking probability calculations were clean and
+verifiable. But by mixing in team politics and driver relationships,
+they created a model that was harder to specify correctly.</p>
+<p>The same team also uses highly detailed aerodynamics simulations with
+computational fluid dynamics for car design. This different fidelity is
+appropriate there - but mixing fidelities within a single simulation
+often causes more problems than it solves. The key is maintaining
+consistent granularity appropriate to the specific question being
+asked.</p>
 <h1 id="epidemiology">Epidemiology</h1>
 <p>The same concept of modelling at a particular fidelity comes up in
 epidemiology. Disease is transmitted by direct person to person
@@ -501,6 +682,11 @@ the government on the Test Trace Isolate program that took a different
 approach <span class="citation" data-cites="Delve-tti20">(The DELVE
 Initiative, 2020a)</span>.</p>
 <h1 id="strategies-for-simulation">Strategies for Simulation</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/simulation-strategies.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/simulation-strategies.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
 <p>Within any simulation, we can roughly split the variables of interest
 into the state variables and the parameters. In the Herd immunity
 example, the state variables were the different susceptible, exposed,
@@ -532,12 +718,19 @@ This can involve loading up entire code bases and rerunning them with
 simulated inputs. This is a third form of simulation where emulation can
 also come in useful.</p>
 <h2 id="backtesting-production-code">Backtesting Production Code</h2>
-<p>In Amazon the team I led looked at examples of simulations and
-emulation as varied as Prime Air drones across to the Amazon Supply
-Chain. In a purchasing system, the idea is to store stock to balance
-supply and demand. The aim is to keep product in stock for quick
-dispatch while keeping prices (and therefore costs) low. This idea is at
-the heart of Amazon’s focus on customer experience.</p>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/production-code-simulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/production-code-simulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>In large-scale production systems, simulation takes on a different
+character. Rather than modeling physical phenomena, we need to simulate
+entire software systems. At Amazon, for example, we worked with
+simulations ranging from Prime Air drones to supply chain systems. In a
+purchasing system, the idea is to store stock to balance supply and
+demand. The aim is to keep product in stock for quick dispatch while
+keeping prices (and therefore costs) low. This idea is at the heart of
+Amazon’s focus on customer experience.</p>
 <h2 id="alexa">Alexa</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span
@@ -545,45 +738,7 @@ class="editsection"
 style=""><a href="https://github.com/lawrennd/snippets/edit/main/_ai/includes/alexa-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_ai/includes/alexa-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip0">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Tom Taylor
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/tom-taylor.png" clip-path="url(#clip0)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip1">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Joe Walowski
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/joe-walowski.png" clip-path="url(#clip1)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip2">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Rohit Prasad
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip2)"/>
-</svg>
+\tomTaylorPicture{15%}\joeWalowskiPicture{15%}\rohitPrasadPicture{15%}
 </div>
 <div class="figure">
 <div id="alexa-architecture-overview-figure" class="figure-frame">
@@ -600,19 +755,7 @@ programme.</p>
 </div>
 </div>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip3">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Rohit Prasad
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip3)"/>
-</svg>
+\rohitPrasadPicture{15%}
 </div>
 <div class="figure">
 <div id="rohit-prasad-alexa-figure" class="figure-frame">
@@ -629,45 +772,7 @@ event.</p>
 </div>
 </div>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip4">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Tom Taylor
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/tom-taylor.png" clip-path="url(#clip4)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip5">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Joe Walowski
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/joe-walowski.png" clip-path="url(#clip5)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip6">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Rohit Prasad
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip6)"/>
-</svg>
+\tomTaylorPicture{15%}\joeWalowskiPicture{15%}\rohitPrasadPicture{15%}
 </div>
 <div class="figure">
 <div id="alexa-schematic-figure" class="figure-frame">
@@ -685,7 +790,7 @@ onclick="magnifyFigure(&#39;alexa-schematic&#39;)">
 <h2 id="speech-to-text">Speech to Text</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip7">
+<defs> <clipPath id="clip15">
 <style>
 circle {
   fill: black;
@@ -695,79 +800,16 @@ circle {
 <title>
 Catherine Breslin
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/catherine-breslin.png" clip-path="url(#clip7)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/catherine-breslin.png" clip-path="url(#clip15)"/>
 </svg>
 </div>
 <h2 id="cloud-service-knowledge-base">Cloud Service: Knowledge Base</h2>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip8">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-David Hardcastle
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/david-hardcastle.png" clip-path="url(#clip8)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip9">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Arpit Mittal
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/arpit-mittal.png" clip-path="url(#clip9)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip10">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Christos Christodoulopoulos
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/christos-christodoulopoulos.png" clip-path="url(#clip10)"/>
-</svg>
+\davidHardcastlePicture{15%}\arpitMittalPicture{15%}\christosChristodoulopoulosPicture{15%}
 </div>
 <h2 id="text-to-speech">Text to Speech</h2>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip11">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Andrew Breen
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/andrew-breen.png" clip-path="url(#clip11)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip12">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Roberto Barra Chicote
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/roberto-barra-chicote.png" clip-path="url(#clip12)"/>
-</svg>
+\andrewBreenPicture{15%}\robertoBarraChicotePicture{15%}
 </div>
 <h2 id="prime-air">Prime Air</h2>
 <div style="text-align:right">
@@ -783,45 +825,7 @@ words, the information and the ‘stuff’. The idea of the drone is to
 complete a component of package delivery, the notion of last mile
 movement of goods, but in a fully autonomous way.</p>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip13">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Gur Kimchi
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/gur-kimchi.png" clip-path="url(#clip13)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip14">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Paul Viola
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/paul-viola.png" clip-path="url(#clip14)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip15">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-David Moro
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/david-moro.png" clip-path="url(#clip15)"/>
-</svg>
+\gurKimchiPicture{15%}\paulViolaPicture{15%}\davidMoroPicture{15%}
 </div>
 <div class="figure">
 <div id="amazon-drone-flight-figure" class="figure-frame">
@@ -931,32 +935,7 @@ class="editsection"
 style=""><a href="https://github.com/lawrennd/snippets/edit/main/_ai/includes/supply-chain-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_ai/includes/supply-chain-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip16">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Llew Mason
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/llew-mason.png" clip-path="url(#clip16)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip17">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Devesh Mishra
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/devesh-mishra.png" clip-path="url(#clip17)"/>
-</svg>
+\llewMasonPicture{15%}\deveshMishraPicture{15%}
 </div>
 <p>Supply chain is the process of matching between the supply of the
 product and demand for the product. This matching process is done
@@ -984,32 +963,7 @@ spent and the quantity of product moved through automated decision
 making.</p>
 <h2 id="supply-chain-optimization-1">Supply Chain Optimization</h2>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip18">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Llew Mason
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/llew-mason.png" clip-path="url(#clip18)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip19">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Devesh Mishra
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/devesh-mishra.png" clip-path="url(#clip19)"/>
-</svg>
+\llewMasonPicture{15%}\deveshMishraPicture{15%}
 </div>
 <p>At the heart of an automated supply chain is the buying system, which
 determines the optimal stock level for products and makes purchases
@@ -1033,45 +987,7 @@ statistical models) have to be moved. For example, the demand for a
 particular product needs to be forecast.</p>
 <h2 id="forecasting">Forecasting</h2>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip20">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Jenny Freshwater
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/jenny-freshwater.png" clip-path="url(#clip20)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip21">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Ping Xu
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/ping-xu.png" clip-path="url(#clip21)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip22">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Dean Foster
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/dean-foster.png" clip-path="url(#clip22)"/>
-</svg>
+\jennyFreshwaterPicture{15%}\pingXuPicture{15%}\deanFosterPicture{15%}
 </div>
 <div class="figure">
 <div id="jenny-freshwater-remars-figure" class="figure-frame">
@@ -1095,71 +1011,7 @@ class="math inline">\(\ref{jenny-freshwater-remars}\)</span>.</p>
 across the a given future period.</p>
 <h2 id="inventory-and-buying">Inventory and Buying</h2>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip23">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Deepak Bhatia
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/deepak-bhatia.png" clip-path="url(#clip23)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip24">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Piyush Saraogi
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/piyush-saraogi.png" clip-path="url(#clip24)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip25">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Raman Iyer
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/raman-iyer.jpg" clip-path="url(#clip25)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip26">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Salal Humair
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/salal-humair.png" clip-path="url(#clip26)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip27">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Narayan Venkatasubramanyan
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/narayan-venkatasubramanyan.png" clip-path="url(#clip27)"/>
-</svg>
+\deepakBhatiaPicture{15%}\piyushSaraogiPicture{15%}\ramanIyerPicture{15%}\salalHumairPicture{15%}\narayanVenkatasubramanyanPicture{15%}
 </div>
 <p>Forecast information is combined with predictions around lead times
 from suppliers, understanding of the network’s capacity (in terms of how
@@ -1220,32 +1072,7 @@ aspects such as user interface, or networking, but the software often
 has many millions of lines of code. For example, the Microsoft Office
 suite is said to contain over 30 million lines of code.</p>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip28">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Charlie Bell
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/charlie-bell.png" clip-path="url(#clip28)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip29">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Peter Vosshall
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/peter-vosshall.png" clip-path="url(#clip29)"/>
-</svg>
+\charlieBellPicture{15%}\peterVosshallPicture{15%}
 </div>
 <div class="figure">
 <div id="ml-system-monolith-figure" class="figure-frame">
@@ -1271,32 +1098,7 @@ architecture’.</p>
 <h2 id="service-oriented-architecture">Service Oriented
 Architecture</h2>
 <div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip30">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Charlie Bell
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/charlie-bell.png" clip-path="url(#clip30)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip31">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Peter Vosshall
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/peter-vosshall.png" clip-path="url(#clip31)"/>
-</svg>
+\charlieBellPicture{15%}\peterVosshallPicture{15%}
 </div>
 <p>In Service Oriented Architecture, or “Software as a Service” the idea
 is that code bases are modularized and communicate with one another
@@ -1391,6 +1193,48 @@ Turing Institute. You can see me talking about the problems <a
 href="http://inverseprobability.com/talks/notes/deploying-machine-learning-systems-intellectual-debt-and-auto-ai.html">at
 this recent seminar given virtually in Manchester</a>.</p>
 <h2 id="examples-in-python">Examples in Python</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/python-simulation-resources.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/python-simulation-resources.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>There are many Python resources available for different types of
+simulation:</p>
+<ul>
+<li>General Purpose:
+<ul>
+<li><code>simpy</code> provides <a
+href="https://simpy.readthedocs.io/en/latest/examples/">examples</a> of
+machine shops, gas stations, car washes</li>
+<li>The news vendor problem for <a
+href="https://github.com/fabryandrea/newsvendor">NFL jersey
+orders</a></li>
+<li><a
+href="https://github.com/amzn/supply-chain-simulation-environment">Amazon’s
+supply chain simulation</a></li>
+</ul></li>
+<li>Control Systems:
+<ul>
+<li><a href="https://www.moorepants.info/blog/npendulum.html">N-link
+pendulum</a> using symbolic Python</li>
+<li><a
+href="https://github.com/openai/gym/blob/master/gym/envs/classic_control/mountain_car.py">Mountain
+Car</a> in OpenAI Gym</li>
+</ul></li>
+<li>Scientific Computing:
+<ul>
+<li><a
+href="https://mark-kramer.github.io/Case-Studies-Python/HH.html">Hodgkin-Huxley
+neuron models</a></li>
+<li><a href="https://github.com/rothnic/formulapy">Formula One race
+simulation</a></li>
+<li><a href="https://github.com/barbagroup/CFDPython">Computational
+fluid dynamics</a></li>
+<li><a
+href="https://solidspy.readthedocs.io/en/latest/readme.html">Finite
+element analysis</a></li>
+</ul></li>
+</ul>
 <p>There are a number of different simulations available in python, and
 tools specifically design for simulation. For example <code>simpy</code>
 has a <a href="https://simpy.readthedocs.io/en/latest/examples/">list of
@@ -1948,21 +1792,9 @@ class="editsection"
 style=""><a href="https://github.com/lawrennd/snippets/edit/main/_gp/includes/gpy-tutorial.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_gp/includes/gpy-tutorial.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <div class="centered" style="">
+<p>\jamesHensmanPicture{15%}</p>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip32">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-James Hensman
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/james-hensman.png" clip-path="url(#clip32)"/>
-</svg>
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip33">
+<defs> <clipPath id="clip7">
 <style>
 circle {
   fill: black;
@@ -1972,7 +1804,7 @@ circle {
 <title>
 Nicolas Durrande
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/nicolas-durrande2.jpg" clip-path="url(#clip33)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/nicolas-durrande2.jpg" clip-path="url(#clip7)"/>
 </svg>
 </div>
 <p>This GPy tutorial is based on material we share in the Gaussian
@@ -2496,6 +2328,48 @@ Group”, <a href="https://www.gdr-mascotnum.fr/"
 class="uri">https://www.gdr-mascotnum.fr/</a>. These researchers bring
 together statisticians, applied mathematicians and engineers in solving
 these problems.</p>
+<h2 id="generative-ai-for-emulation">Generative AI for Emulation</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/gen-ai-emulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/gen-ai-emulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>While Gaussian processes provide an excellent framework for emulation
+when we have relatively few simulation runs, modern generative AI
+approaches become powerful when we have extensive archives of previous
+simulations. Google DeepMind’s GraphCast system provides an excellent
+example of this approach in weather forecasting.</p>
+<p>Traditional numerical weather prediction requires solving complex
+partial differential equations on supercomputers, taking hours to
+complete. <a
+href="https://deepmind.google/discover/blog/graphcast-ai-model-for-faster-and-more-accurate-global-weather-forecasting/">GraphCast</a>
+was trained on archived weather forecasts from the European Centre for
+Medium-Range Weather Forecasts (ECMWF) <span class="citation"
+data-cites="Lam-graphcast23">(Lam et al., 2023)</span>. This ECMWF
+dataset - containing millions of previous forecasts and their outcomes -
+allowed the model to learn the complex patterns and physics underlying
+weather systems.</p>
+<div class="figure">
+<div id="graphcast-results-figure" class="figure-frame">
+<iframe width="800" height="600" src="https://www.youtube.com/embed/Q6fOlW-Y_Ss?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+<div id="graphcast-results-magnify" class="magnify"
+onclick="magnifyFigure(&#39;graphcast-results&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="graphcast-results-caption" class="caption-frame">
+<p>Figure: YouTube video of results from the GraphCast algorithm.</p>
+</div>
+</div>
+<p>As a result GraphCast can produce forecasts of similar accuracy to
+traditional numerical methods in seconds rather than hours. This is
+possible because: 1. The model has seen millions of examples of how
+weather patterns evolve 2. The underlying physics, while complex, has
+regularities that can be learned 3. The training data comes from a
+consistent, high-quality source of simulations</p>
+<p>In many domains, we don’t have access to such a vast archive and must
+rely on more data-efficient approaches like Gaussian processes.</p>
 <h2 id="emukit-playground">Emukit Playground</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span
@@ -2504,7 +2378,7 @@ style=""><a href="https://github.com/lawrennd/snippets/edit/main/_uq/includes/em
 </div>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip34">
+<defs> <clipPath id="clip12">
 <style>
 circle {
   fill: black;
@@ -2514,10 +2388,10 @@ circle {
 <title>
 Leah Hirst
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/person-placeholder.jpg" clip-path="url(#clip34)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/person-placeholder.jpg" clip-path="url(#clip12)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip35">
+<defs> <clipPath id="clip13">
 <style>
 circle {
   fill: black;
@@ -2527,7 +2401,7 @@ circle {
 <title>
 Cliff McCollum
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/cliff-mccollum.jpg" clip-path="url(#clip35)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/cliff-mccollum.jpg" clip-path="url(#clip13)"/>
 </svg>
 </div>
 <p>Emukit playground is a software toolkit for exploring the use of
@@ -2636,6 +2510,12 @@ Cabrera, C., Paleyes, A., Thodoroff, P., Lawrence, N.D., 2023. <a
 href="https://arxiv.org/abs/2302.04810">Real-world machine learning
 systems: A survey from a data-oriented architecture perspective</a>.
 </div>
+<div id="ref-Cheng-evidence20" class="csl-entry" role="listitem">
+Cheng, B., Mazzola, G., Pickard, C.J., Ceriotti, M., 2020. Evidence for
+supercritical behaviour of high-pressure liquid hydrogen. Nature 585,
+217–220. <a
+href="https://doi.org/10.1038/s41586-020-2677-y">https://doi.org/10.1038/s41586-020-2677-y</a>
+</div>
 <div id="ref-Joshi-doa07" class="csl-entry" role="listitem">
 Joshi, R., 2007. <a
 href="http://community.rti.com/sites/default/files/archive/Data-Oriented_Architecture.pdf">A
@@ -2646,6 +2526,14 @@ Kennedy, M.C., O’Hagan, A., 2001. Bayesian calibration of computer
 models. Journal of the Royal Statistical Society: Series B (Statistical
 Methodology) 63, 425–464. <a
 href="https://doi.org/10.1111/1467-9868.00294">https://doi.org/10.1111/1467-9868.00294</a>
+</div>
+<div id="ref-Lam-graphcast23" class="csl-entry" role="listitem">
+Lam, R., Sanchez-Gonzalez, A., Willson, M., Wirnsberger, P., Fortunato,
+M., Alet, F., Ravuri, S., Ewalds, T., Eaton-Rosen, Z., Hu, W., Merose,
+A., Hoyer, S., Holland, G., Vinyals, O., Stott, J., Pritzel, A.,
+Mohamed, S., Battaglia, P., 2023. Learning skillful medium-range global
+weather forecasting. Science 382, 1416–1421. <a
+href="https://doi.org/10.1126/science.adi2336">https://doi.org/10.1126/science.adi2336</a>
 </div>
 <div id="ref-Lawrence-atomic24" class="csl-entry" role="listitem">
 Lawrence, N.D., 2024. <a

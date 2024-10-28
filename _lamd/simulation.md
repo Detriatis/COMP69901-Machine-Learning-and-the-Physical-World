@@ -41,23 +41,14 @@ transition: None
 \include{_physics/includes/universe-gaussian.md}
 \include{_physics/includes/precise-physical-laws.md}
 \include{_physics/includes/simulation-scales.md}
-<<<<<<< HEAD
 
 \subsection{How Machine Learning Can Help}
 
-\notes{Machine learning models can often capture some of the regularities of the system that we find in these mergent properties. They do so, not from first principles, but from analysis of the data. In the Atomic Human, I argue that this has more in common with how human intellience solves problems than through first-principles modelling. When it comes to ML and the PHysical World, the aim is to use machine learning models alongside simulations to get the best of both worlds.}
+\notes{Machine learning models can often capture some of the regularities of the system that we find in these emergent properties. They do so, not from first principles, but from analysis of the data. In the Atomic Human, I argue that this has more in common with how human intellience solves problems than through first-principles modelling. When it comes to ML and the Physical World, the aim is to use machine learning models alongside simulations to get the best of both worlds.}
 
-\addatomic{}
+\addatomic{hooshing, Pooh's law of}{157-158,160}
 
-\reading
-=======
-\include{_ml/includes/accelerate-programme.md}
-\include{_ml/includes/related-approaches.md}
-\include{_ml/includes/probabilistic-programming.md}
-\include{_ml/includes/approximate-bayesian-computation.md}
-\include{_ml/includes/causality-section.md}
 \include{_ml/includes/simulation-conclusion.md}
->>>>>>> aa2e66dde86ad5300f711f6832b8bf7af65a6b66
 
 \thanks
 

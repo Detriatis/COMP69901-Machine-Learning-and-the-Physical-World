@@ -1,6 +1,6 @@
 ---
 week: 3
-session: 1
+session: 2
 title: "Emulation"
 abstract:  >
   In this lecture we motivate the use of emulation and introduce the GPy software as a framework for building Gaussian process emulators.
@@ -32,90 +32,11 @@ transition: None
 \include{_notebooks/includes/plot-setup.md}
 \include{_software/includes/notutils-software.md}
 \include{_software/includes/mlai-software.md}
-\subsection{Accelerate Programme}
-
-\slides{* Computer Lab hosts Accelerate Programme for Scientific Discovery
-* Use ML techniques to deliver scientific advances
-* Four DECAF fellows: MPhil Projects Available!}
-
-\notes{The Computer Lab is hosting a new initiative, funded by Schmidt Futures, known as the [Accelerate Programme for Scientific Discovery](https://acceleratescience.github.io/). The aim is to address scientific challenges, and accelerate the progress of research, through using tools in machine learning.}
-
-\notes{We now have four fellows appointed, each of whom works at the interface of machine learning and scientific discovery. They are using the ideas around machine learning modelling to drive their scientific research.}
-
-\notes{For example, [Bingqing Cheng](https://acceleratescience.github.io/team/bingqing-cheng.html), one of the Department's former DECAF Fellows has used neural network accelerated molecular dynamics simulations to understand a new form of metallic hydrogen, likely to occur at the heart of stars [@Cheng-evidence20]. The University's [press release is here](https://www.cam.ac.uk/research/news/ai-shows-how-hydrogen-becomes-a-metal-inside-giant-planets).}
-
-\notes{On her website Bingqing quotes Paul Dirac.}
-
-\newslide{Bingqing Cheng quoting Paul Dirac}
-
-> The fundamental laws necessary for the mathematical treatment of a large part of physics and the whole of chemistry are thus completely known, and the difficulty lies only in the fact that application of these laws leads to equations that are too complex to be solved. 
-
-\newslide{}
-
-> ..approximate practical methods of applying quantum mechanics should be developed, which can lead to an explanation of the main features of complex atomic systems without too much computation.  
->
->--- Paul Dirac (6 April 1929)
-
-\notes{Bingqing moved to a position at IST Austria and then [on to Berkeley](https://chemistry.berkeley.edu/people/bingqing-cheng).}
-
-\newslide{Accelerate Fellows}
-
-\centerdiv{\challengerMishraPicture{15%}\soumyaBanerjeePicture{15%}\samNallaperumaPicture{15%}}
-
-\notes{Our four current Accelerate fellows are [Challenger Mishra](https://acceleratescience.github.io/team/challenger-mishra.html), a physicist interested in string theory and quantizing gravity. [Sarah Morgan](https://acceleratescience.github.io/team/sarah-morgan.html) from the Brain Mapping Unit, who is focused on predicting psychosis trajectories, [Soumya Bannerjee](https://acceleratescience.github.io/team/soumya-banerjee.html) who focuses on complex systems and healthcare and [Sam Nallaperuma](https://acceleratescience.github.io/team/sam-nallaperuma.html) who the interface of machine learning and biology with particular interests in emergent behavior in complex systems.}
-
-\notes{For those interested in Part III/MPhil projects, you can see their project suggestions on [this page](https://mlatcl.github.io/internal/projects/).}
-
-\section{Related Approaches}
-
-\notes{While this module is mainly focusing on emulation as a route to bringing machine learning closer to the physical world, I don't want to give the impression that's the only approach. It's worth bearing in mind three important domains of machine learning (and statistics) that we also could have explored.}
-
-* Probabilistic Programming
-* Approximate Bayesian Computation
-* Causal inference
-
-\notes{Each of these domains also brings a lot to the table in terms of understanding the physical world.}
-
-\subsection{Probabilistic Programming}
-\slides{* Dates back to BUGS
-* Modern descendent (same spirit) is Stan
-* Also languages like pyro (based on PyTorch)
-}
-
-\notes{Probabilistic programming is an idea that, from our perspective, can be summarized as follows. What if, when constructing your simulator, or your model, you used a programming language that was aware of the state variables and the probability distributions. What if this language could 'compile' the program into code that would automatically compute the Bayesian posterior for you?
-
-This is the objective of probabilistic programming. The idea is that you write your model in a language, and that language is automatically converted into the different modelling codes you need to perform Bayesian inference.
-
-The ideas for probabilistic programming originate in [BUGS](https://www.mrc-bsu.cam.ac.uk/software/bugs/). The software was developed at the MRC Biostatistics Unit here in Cambridge in the early 1990s, by among others, [Sir David Spiegelhalter](https://en.wikipedia.org/wiki/David_Spiegelhalter). Carl Henrik covered in last week's lecture some of the approaches for approximate inference. BUGS uses Gibbs sampling. Gibbs sampling, however, can be slow to converge when there are strong correlations in the posterior between variables. 
-
-The descendent of BUGS that is probably most similar in the spirit of its design is [Stan](https://mc-stan.org/). Stan came from researchers at Columbia University and makes use of a variant of Hamiltonian Monte Carlo called the No-U-Turn sampler. It builds on automatic differentiation for the gradients it needs. It's all written in C++ for speed, but has interfaces to Python, R, Julia, MATLAB etc. Stan has been highly successful during the Coronavirus pandemic, with a number of epidemiological simulations written in the language, for example see this [blog post](https://mc-stan.org/users/documentation/case-studies/boarding_school_case_study.html).}
-
-\notes{Other probabilistic programming languages of interest include those that make use of variational approaches (such as [pyro](https://pyro.ai/)) and allow use of neural network components.}
-
-\notes{One important probabilistic programming language being developed is [Turing](https://turinglang.org/stable/), one of the key developers is  [Hong Ge](https://mlg.eng.cam.ac.uk/hong/) who is a Senior Research Associate in Cambridge Engineering.}
- 
-\subsection{Approximate Bayesian Computation}
-
-\notes{We reintroduced Gaussian processes at the start of this lecture by sampling from the Gaussian process and matching the samples to data, discarding those that were distant from our observations. This approach to Bayesian inference is the starting point for *approximate Bayesian computation* or ABC.}
-
-\notes{The idea is straightforward, if we can measure 'closeness' in some relevant fashion, then we can sample from our simulation, compare our samples to real world data through 'closeness measure' and eliminate samples that are distant from our data. Through appropriate choice of closeness measure, our samples can be viewed as coming from an approximate posterior.}
-
-\notes{My Sheffield colleague, Rich Wilkinson, was one of the pioneers of this approach during his PhD in the Statslab here in Cambridge. You can hear Rich talking about ABC at NeurIPS in 2013 here.}
-
-\figure{\includeyoutube{sssbLkn2JjI}{600}{450}}{Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013. Unfortunately, they've not synchronised the slides with the tutorial. You can find the slides [separately here](http://media.nips.cc/Conferences/2013/Video/Tutorial2B.pdf).}{rich-wilkinson-abc}
-
-
-\subsection{Causality}
-
-\figure{\includeyoutube{yksduYxEusQ}{600}{450}}{Judea Pearl and Elias Bareinboim giving a Tutorial on Causality at NeurIPS in 2013. Again, the slides aren't synchronised, but you can find them separately [here](http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf).}{judea-pearl-causality}
-
-\notes{All these approaches offer a lot of promise for developing machine learning at the interface with science but covering each in detail would require four separate modules. We've chosen to focus on the emulation approach, for two principal reasons. Firstly, it's conceptual simplicity. Our aim is to replace all or part of our simulation with a machine learning model. Typically, we're going to want uncertainties as part of that representation. That explains our focus on Gaussian process models. Secondly, the emulator method is flexible. Probabilistic programming requires that the simulator has been built in a particular way, otherwise we can't compile the program. Finally, the emulation approach can be combined with any of the existing simulation approaches. For example, we might want to write our emulators as probabilistic programs. Or we might do causal analysis on our emulators, or we could speed up the simulation in ABC through emulation.} 
-
-\section{Conclusion}
-\slides{* Introduced simulator: body of computer code.
-* Emergent properties
-* Abstractions
-* Levels of fidelity}
+\include{_ml/includes/accelerate-programme.md}
+\include{_ml/includes/related-approaches.md}
+\include{_ml/includes/probabilistic-programming.md}
+\include{_ml/includes/approximate-bayesian-computation.md}
+\include{_ml/includes/causality-section.md}
 
 \notes{We've introduced the notion of a simulator. A body of computer code that expresses our understanding of a particular physical system. We introduced such simulators through *physical laws*, such as laws of gravitation or electro-magnetism. But we soon saw that in many simulations those laws become abstracted, and the simulation becomes more phenomological.}
 
@@ -125,67 +46,15 @@ The descendent of BUGS that is probably most similar in the spirit of its design
 
 \section{Emulation}
 
-
 \notes{There are a number of ways we can use machine learning to accelerate scientific discovery. But one way is to have the machine learning model learn the effect of the rules. Rather than worrying about the detail of the rules through computing each step, we can have the machine learning model look to abstract the rules and capture emergent phenomena, just as the Maxwell-Boltzmann distribution captures the essence of the behavior of the ideal gas.}
 
 \notes{The challenges of Laplace's gremlin present us with issues that we solve in a particular way, this is the focus of Chapter 6 in *The Atomic Human*.}
 
 \include{_books/includes/the-atomic-human.md}
 
-\notes{What follows is a quote form Chapter 6, which introduces Laplace's gremlin and its consequences.
+\notes{What follows is a quote form Chapter 6, which introduces Laplace's gremlin and its consequences.}
 
-In Douglas Adams's *Hitchhiker's Guide to the Galaxy* the computer Deep
-Thought is asked to provide the answer to the 'great question' of 'life,
-the universe and everything'. After seven and a half million years of
-computation, Deep Thought has completed its program but is reluctant to
-give its creators the answer.
-
-> 'You're really not going to like it,' observed Deep Thought.\
-> 'Tell us!'\
-> 'All right,' said Deep Thought. 'The Answer to the Great Question . .
-> .'\
-> 'Yes . . . !'\
-> 'Of Life, the Universe and Everything ...' said Deep Thought.\
-> 'Yes ... !'\
-> 'Is ...' said Deep Thought, and paused.\
-> 'Yes ... !'\
-> 'Is ...'\
-> 'Yes ... !!! ... ?'\
-> 'Forty-two,' said Deep Thought, with infinite majesty and calm.
->
-> Douglas Adams *The Hitchhiker's Guide to the Galaxy*, 1979, Chapter 27
-
-After a period of shock from the questioners, the machine goes on to
-explain.}
-
-\newslide{}
-
-> 'I checked it very thoroughly,' said the computer, 'and that quite
-> definitely is the answer. I think the problem, to be quite honest with
-> you, is that you've never actually known what the question is.'
->
-> Douglas Adams *The Hitchhiker's Guide to the Galaxy*, 1979, Chapter 28
-
-\notes{To understand the question, Deep Thought goes on to agree to design a
-computer which will work out what the question is. In the book that
-machine is the planet Earth, and its operators are mice. Deep Thought's
-idea is that the mice will observe the Earth and their observations will
-allow them to know what the Great Question is.
-
-To understand the consequences of Hawking's Theory of Everything, we
-would have to carry out a scheme similar to Deep Thought's. The Theory
-wouldn't directly tell us that hurricanes exist or that when the sun
-sets on Earth the sky will have a red hue. It wouldn't directly tell us
-that water will boil at 100 degrees centigrade. These consequences of
-the Theory would only play out once it was combined with the data to
-give us the emergent qualities of the Universe. The Deep Thought problem
-hints at the intractability of doing this. The computation required to
-make predictions from Laplace's demon can be enormous, Deep Thought
-intends to create a planet to run it. As a result, this isn't how our
-intelligence works in practice. The computations required are just too
-gargantuan. Relative to the scale of the Universe our brains are
-extremely limited. Fortunately though, to make these predictions, we
-don't have to build our own Universe, because we've already got one.}
+\include{_simulation/includes/deep-thought-simulation.md}
 
 \include{_ai/includes/bear-of-little-brain.md}
 
@@ -202,37 +71,9 @@ don't have to build our own Universe, because we've already got one.}
 * In surrogate modelling we use statistical/ML models to learn regularities in those emergent phenomena.}
 \notes{As we've seen from the very simple rules in the Game of Life, emergent phenomena we might be interested in take computation power to discover, just as Laplace's and Dirac's quotes suggest. The objective in surrogate modelling is to harness machine learning models to learn those physical characteristics.}
 
-\subsection{Types of Simulations}
+\include{_simulation/includes/simulation-types.md}
+\include{_simulation/includes/f1-simulation-fidelity.md}
 
-\slides{* Simulation can be differential equation models
-  * Either abstracted (like epidemilogical models).
-  * Or fine-grained (like climate/weather).
-* Discrete event simulations
-  * Either turn based (e.g. Game of Life or F1 Strategy Simulations)
-  * Or Event based (e.g. Gillespie algorithm for chemical models}
-
-\notes{We've introduced simulations from the perspective of laws of physics. In practice, many simulations may not directly encode for the laws of physics, but they might encode expert intuitions about a problem (like Pooh's intuition about hooshing). 
-
-For example, in Formula 1 races, the cars have tyres that wear at different rates. Softer tyres allow the cars to drive faster but wear quicker. Harder tyres man the car drives slower but they last longer. Changing between tyres is part of the race, and it has a time penalty. Before each race the teams decide what their strategy will be with tyre changes. It's not only how many tyre changes that are important, but when they happen. If you change your tyre early, you might get a speed advantage and be able to pass your rival when they change their tyre later. This is a trick known as 'undercutting', but if your early change puts you back onto the track behind other slower cars, you will lose this advantage. }
-
-\notes{Formula 1 teams determine their strategy through simulating the race. Each team knows how fast other teams are around the track, and what their top speeds are. So, the teams simulate many thousands or millions of races with different strategies for their rivals, and they choose the strategy for which they maximize their number of expected points.}
-
-\notes{When many simulations are done, the results take time to come. During the actual race, the simulations are too slow to provide the real time information teams would need. In this case F1 teams can use emulators, models that have learnt the effect of the simulations, to give real time updates.}
-
-\notes{Formula 1 race simulations contain assumptions that derive from physics but don't directly encode the physical laws. For example, if one car is stuck behind another, in any given lap, it might overtake. A typical race simulation will look at the lap speed of each car and the top speed of each car (as measured in 'speed traps' that are placed on the straight). It will assume a probability of overtake for each lap that is a function of these values. Of course, underlying that function is the physics of how cars overtake each other, but that can be abstracted away into a simpler function that the Race Strategy Engineer defines from their knowledge and previous experience.}
-
-\notes{Many simulations have this characteristic: major parts of the simulation are the result of encoding expert knowledge in the code. But this can lead to challenges. I once asked a strategy engineer, who had completed a new simulation, how it was going. He replied that things had started out well, but over time its performance was degrading. We discussed this for a while and over time a challenge of mis-specified granularity emerged.}
-
-\subsection{Fidelity of the Simulation}
-
-\slides{* Simulations work at different fidelities.
-     * e.g. difference between strategy simulation in F1 and aerodynamics simulation}
-
-\notes{The engineer explained how there'd been a race where the simulation had suggested that their main driver *shouldn't* pit because he would have emerged behind a car with a slower lap speed, but a high top-speed. This would have made that car difficult to overtake. However, the driver of that slower car was also in the team's 'development program', so everyone in the team knew that the slower car would have moved aside to let their driver through. Unfortunately, the simulation didn't know this. So, the team felt the wrong stategy decision was made. After the race, the simulation was updated to include a special case for this situation. The new code checked whether the slower car was a development driver, making it 'more realistic'.
-
-Over time there were a number of similar changes, each of which should have improved the simulation, but the reality was the code was now 'mixing granularities'. The formula for computing the probability of overtake as a function of speeds is one that is relatively easy to verify. It ignores the relationships between drivers, whether a given driver is a development driver, whether one bears a grudge or not, whether one is fighting for their place in the team. That's all assimilated into the equation. The original equation is easy to calibrate, but as soon as you move to a finer granularity and consider more details about individual drivers, the model seems more realistic, but it becomes difficult to specify, and therefore performance degrades.}
-
-\notes{Simulations work at different fidelities, but as the Formula 1 example shows you must be very careful about mixing fidelities within the same simulation. The appropriate fidelity of a simulation is strongly dependent on the question being asked of it. On the context. For example, in Formula 1 races you can also simulate the performance of the car in the wind tunnel and using computational fluid dynamics representations of the Navier-Stokes equations. That level of fidelity *is* appropriate when designing the aerodynamic components of the car, but inappropriate when building a strategy simulation.}
 
 \section{Epidemiology}
 
@@ -242,93 +83,15 @@ Over time there were a number of similar changes, each of which should have impr
 
 \notes{Thinking about our Formula 1 example, and the differing levels of fidelity that might be included in a model, you can now imagine the challenges of doing large scale theoretical epidemiology. The compartment model is operating at a particular level of fidelity. Imagine trying to modify this model for a specific circumstance, like the way that the University of Cambridge chooses to do lectures. It's not appropriate for this level of fidelity. You need to use different types of models for that decision making. [One of our case studies](https://mlatcl.github.io/mlphysical/casestudies/tti-explorer.html) looks at a simulation that was used to advise the government on the Test Trace Isolate program that took a different approach [@Delve-tti20].}
 
-\section{Strategies for Simulation}
-
-\slides{* Split variables into *state variables*, *parameters* and *results*.
-* In herd immunity
-  * State variables: susceptible, exposed, infectious, recovered.
-  * Parameters: reproduction number, expected lengths of infection, lockdown timings.
-  * Results: e.g. total number of deaths}
-
-\newslide{Strategies for Simulation}
-
-\slides{* Use emulator to map from e.g. parameters to total number of deaths.
-* Treat parameters and results of simulator as inputs and outputs for emulator.}
-
-\notes{Within any simulation, we can roughly split the variables of interest into the state variables and the parameters. In the Herd immunity example, the state variables were the different susceptible, exposed, infectious and recovered groups. The parameters were the reproduction number and the expected lengths of infection and the timing of lockdown. Often parameters are viewed as the inputs to the simulation, the things we can control. We might want to know how to time lock down to minimize the number of deaths. This behavior of the simulator is what we may want to emulate with our Gaussian process model.}
-
-\notes{So far, we've introduced simulation motivated by the physical laws of the universe. Those laws are sometimes encoded in differential equations, in which case we can try to solve those systems (like with Herd Immunity or Navier Stokes). An alternative approach is taken in the Game of Life. There a turn-based simulation is used, at each turn, we iterate through the simulation updating the state of the simulation. This is known as a *discrete event simulation*. In race simulation for Formula 1 a discrete event simulation is also used. There is another form of discrete event simulation, often used in chemical models, where the events don't take place at regular intervals. Instead, the timing to the next event is computed, and the simulator advances that amount of time. For an example of this see [the Gillespie algorithm](https://en.wikipedia.org/wiki/Gillespie_algorithm)}.
-
-\notes{There is a third type of simulation that we'd also like to introduce. That is simulation within computer software. In particular, the need to backtest software with 'what if' ideas -- known as counter factual simulation -- or to trace errors that may have occurred in production. This can involve loading up entire code bases and rerunning them with simulated inputs. This is a third form of simulation where emulation can also come in useful.}
-
-\subsection{Backtesting Production Code}
-
-\slides{* Third type of simulation.
-* Counterfactual running of system code.}
-
-\notes{In Amazon the team I led looked at examples of simulations and emulation as varied as Prime Air drones across to the Amazon Supply Chain. In a purchasing system, the idea is to store stock to balance supply and demand. The aim is to keep product in stock for quick dispatch while keeping prices (and therefore costs) low. This idea is at the heart of Amazon's focus on customer experience.}
-
-\include{_ai/includes/alexa-system.md}
-\include{_ai/includes/prime-air-system.md}
-\include{_ai/includes/supply-chain-system.md}
-\include{_ai/includes/buying-system.md}
-
-\notes{Clearly Conway's Game of Life exhibits an enormous amount of intellectual debt, indeed that was the idea. Build something simple that exhibits great complexity. That's what makes it so popular. But in deployed system software, intellectual debt is a major headache and emulation presents one way of dealing with it.}
+\include{_simulation/includes/simulation-strategies.md}
+\include{_simulation/includes/production-code-simulation.md}
 
 
-\notes{Unfortunately, it also makes sophisticated software systems a breeding ground for intellectual debt. Particularly when they contain components which are themselves ML components. Dealing with this challenge is a major objective of my Senior AI Fellowship at the Alan Turing Institute. You can see me talking about the problems [at this recent seminar given virtually in Manchester](http://inverseprobability.com/talks/notes/deploying-machine-learning-systems-intellectual-debt-and-auto-ai.html).}
-
-\subsection{Examples in Python}
-
-
-\notes{There are a number of different simulations available in python, and tools specifically design for simulation. For example `simpy` has a [list of example simulations](https://simpy.readthedocs.io/en/latest/examples/) around machine shops, gas stations, car washes.}
-\slides{
-* [Simpy](https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html)}
-
-\notes{Operations research ideas like the newsvendor problem, can also be solved, Andrea Fabry provides an example of the newsvendor problem in python for order of [NFL replica jerseys here](https://github.com/fabryandrea/newsvendor).}
-\slides{
-* [News Vendor Problem](https://github.com/fabryandrea/newsvendor) in python (for ordering NFL Replica Jerseys.}
-
-\notes{The news vendor problem is also a component in the Amazon supply chain. The Amazon supply chain makes predictions about supply and demand, combines them with a cost basis and computes optimal stock. Inventory orders are based on the difference between this optimal stock and current stock. The [MiniSCOT simulation](https://github.com/amzn/supply-chain-simulation-environment) provides code that illustrates this.}
-\slides{
-* [Amazon Supply Chain](https://github.com/amzn/supply-chain-simulation-environment)}
-
-\notes{Control problems are also systems that aim to achieve objectives given a set of parameters. A classic control problem is the inverted pendulum. This [python code](https://www.moorepants.info/blog/npendulum.html) generalises the standard inverted pendulum using one with $n$-links using symbolic python code.}
-\slides{
-* [Trolley & Pendulum](https://www.moorepants.info/blog/npendulum.html) using sympy (symbolic python)}
-
-\newslide{Examples in Python}
-
-\notes{In reinforcement learning similar control problems are studied, a classic reinforcement learning problem is known as the [Mountain Car](https://github.com/openai/gym/blob/master/gym/envs/classic_control/mountain_car.py). You can work with this problem using an environment known as [OpenAI gym](https://github.com/openai/gym) that includes many different reinforcement learning scenarios.}
-\slides{
-* [Mountain Car](https://github.com/openai/gym/blob/master/gym/envs/classic_control/mountain_car.py) in the OpenAI Gym.
-}
-
-\notes{In neuroscience Hodgkin and Huxley studied the giant axon in squid to work out a set of differential equations that are still used today to model spiking neurons. Mark Kramer explains how to [simulate them in python here](https://mark-kramer.github.io/Case-Studies-Python/HH.html).}
-\slides{
-* [Hodgkin Huxley](https://mark-kramer.github.io/Case-Studies-Python/HH.html) by Mark Kramer.}
-
-\notes{All Formula One race teams simulate the race to determine their strategy (tyres, pit stops etc). While those simulations are proprietary, there is sufficient interest in the wider community that race simulations have been developed in python. Here is [one that Nick Roth has made available](https://github.com/rothnic/formulapy).}
-\slides{
-* [Formula One Race Simulation in Python](https://github.com/rothnic/formulapy) by Nick Roth.}
-
-\notes{Formula one teams also make use of simulation to design car parts. There are at least two components to this, simulations that allow the modelling of fluid flow across the car, and simulations that analyze the capabilities of materials under stress. You can find computational [fluild dynamics simulations in python here](https://github.com/barbagroup/CFDPython) and [finite element analysis methods for computing stress in materials here](https://solidspy.readthedocs.io/en/latest/readme.html).}
-\slides{* [Fluid Dynamics](https://github.com/barbagroup/CFDPython) Discretisation of PDEs
-* [Stress in a connecting rod](https://solidspy.readthedocs.io/en/latest/readme.html) Discretisation of PDEs
-}
-
-\notes{Alongside continuous system simulation through partial differential equations, another form of simulation that arises is known as *discrete event simulation*. This comes up in c[omputer networks](https://github.com/mkalewski/sim2net) and also in chemical systems where the approach to simulating is kown as the [Gillespie algorithm](https://github.com/karinsasaki/gillespie-algorithm-python/).}
-
-\slides{
-* [Network simulation](https://github.com/mkalewski/sim2net) Discrete Event simulation.
-* [Gillespie Algorithm](https://github.com/karinsasaki/gillespie-algorithm-python/) notebook (in Python 2.7).}
-
-
-
-
+\include{_simulation/includes/python-simulation-resources.md}
 \include{_simulation/includes/simulation-system.md}
 \include{_data-science/includes/experiment-analyze-design.md}
 \include{_simulation/includes/packing-problems.md}
+
 \subsection{Modelling with a Function}
 
 \notes{What if the question of interest was quite simple, for example in the packing problem, we just wanted to know the minimum side length. Sometimes, regardless of the complexity of the problem, there can be a pattern to the answer that is emergent due to regularities in the underlying problem.}
@@ -344,6 +107,7 @@ Over time there were a number of similar changes, each of which should have impr
 \include{_gp/includes/gpy-tutorial.md}
 \include{_gp/includes/gpy-emulation.md}
 
+\include{_simulation/includes/gen-ai-emulation.md}
 
 \include{_uq/includes/emukit-playground.md}
 
