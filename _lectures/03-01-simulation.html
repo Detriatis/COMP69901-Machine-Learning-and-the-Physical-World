@@ -82,7 +82,38 @@ class="uri">https://github.com/lawrennd/mlai</a></p>
 <p>Once <code>mlai</code> is installed, it can be imported in the usual
 manner.</p>
 <div class="sourceCode" id="cb4"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlai <span class="im">import</span> plot</span></code></pre></div>
+<h2 id="cellular-automata">Cellular Automata</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/automata-base.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/automata-base.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>Cellular automata are systems of cells that evolve according to fixed
+rules. The rules depend on the current state of cells and their
+neighbors. We’ll explore both one-dimensional (Wolfram) and
+two-dimensional (Conway) cellular automata. First, we’ll set up some
+base functionality that both types share.</p>
+<p>These base classes and functions provide:</p>
+<ol type="1">
+<li>A flexible grid structure that works for both 1D and 2D
+automata</li>
+<li>Consistent array access patterns</li>
+<li>Grid visualization tools</li>
+<li>Support for highlighting interesting cells or patterns</li>
+</ol>
+<p>We’ll build on this foundation to implement both Wolfram’s elementary
+one dimensional cellular automata and later Conway’s two dimensional
+Game of Life.</p>
+<p>These diagram generation functions maintain consistent styling while
+providing specialized visualizations for:</p>
+<ol type="1">
+<li>Wolfram rule definitions and their outcomes</li>
+<li>Game of Life rules and their effects</li>
+</ol>
+<p>They work with the base Grid class but provide custom layouts
+specific to teaching and explaining the rules of each system.</p>
 <h2 id="wolfram-automata">Wolfram Automata</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span
@@ -204,6 +235,7 @@ rule_binary[1] == ‘1’ else ‘□’}</li>
 <li>Find this pattern in the table above</li>
 <li>The center cell becomes the value shown in the ‘Result’ column</li>
 </ol>
+<h2 id="rule-1">Rule 1</h2>
 <div class="figure">
 <div id="rule-001_explanation-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-001_explanation.svg" width="95%" style=" ">
@@ -226,6 +258,8 @@ style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/inc
 <p>Wolfram explored exhaustively the different automata, and <a
 href="But%20the%20surprising%20%5Bdiscovery%20I%20made%20in%20the%201980s%5D(https://content.wolfram.com/sw-publications/2020/07/origins-randomness-physical-systems.pdf)">discovered
 that Rule 30</a> exhibited particularly interesting behaviour.</p>
+<p>Rule 30 generates patterns that appear random, yet are completely
+deterministic.</p>
 <table>
 <thead>
 <tr class="header">
@@ -297,32 +331,13 @@ onclick="magnifyFigure(&#39;rule-030-explanation&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="rule-030-explanation-caption" class="caption-frame">
-<p>Figure: Rule 30 expressed in pixel form.</p>
+<p>Figure: Rule 30 expressed in pixel form. Note how mixed the output
+states are compared to simpler rules.</p>
 </div>
 </div>
 <div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set parameters</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> <span class="dv">101</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the cellular automaton</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ca <span class="op">=</span> rule_30(size, steps)</span></code></pre></div>
-<div class="figure">
-<div id="rule-030-progression-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-030-progression.svg" width="70%" style=" ">
-</object>
-</div>
-<div id="rule-030-progression-magnify" class="magnify"
-onclick="magnifyFigure(&#39;rule-030-progression&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="rule-030-progression-caption" class="caption-frame">
-<p>Figure: Progression of Rule 30 with a single cell on as the initial
-condition.</p>
-</div>
-</div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
 <h2 id="rule-30-in-cambridge">Rule 30 in Cambridge</h2>
 <div class="figure">
 <div id="rule-030-cambridge-north-figure" class="figure-frame">
@@ -350,8 +365,9 @@ to be generated intrinsically</a> within a system just through the
 process of applying definite underlying rules.</p>
 </blockquote>
 <p>Wolfram refers to the pseudorandom pattern that emerges, in
-particular down the center line of hte automata as “computationally
-irreducible”.</p>
+particular down the center line of the automata as “computationally
+irreducible”. At one point this line was even used within Wolfram as a
+pseudorandom number generator.</p>
 <h2 id="game-of-life">Game of Life</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span
@@ -535,6 +551,49 @@ three live cells will give birth to a new cell at the next turn.</p>
 </div>
 <p>And that’s it. Those are the simple ‘physical laws’ for Conway’s
 game.</p>
+<h2 id="game-of-life-implementation">Game of Life Implementation</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-implementation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-implementation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>Now that we understand the rules of Life, let’s implement them. Each
+cell’s fate is determined by counting its eight neighbors and applying
+Conway’s rules.</p>
+<p>The implementation above provides: 1. Neighbor counting with
+different boundary conditions 2. Rule application following Conway’s
+specifications 3. Support for both periodic and fixed boundaries 4.
+History tracking for visualization 5. Flexible initial state
+configuration</p>
+<p>This base implementation will be essential when we combine it with
+Wolfram automata, as we’ll need to modify the boundary conditions to
+interact with the Wolfram rules.</p>
+<div class="figure">
+<div id="life-blinker-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-blinker.svg" width="80%" style=" ">
+</object>
+</div>
+<div id="life-blinker-magnify" class="magnify"
+onclick="magnifyFigure(&#39;life-blinker&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="life-blinker-caption" class="caption-frame">
+<p>Figure: Evolution of a simple oscillator (blinker) in the Game of
+Life.</p>
+</div>
+</div>
+<p>This implementation will serve as the foundation for our exploration
+of Life patterns and ultimately for our hybrid system combining Life
+with Wolfram automata. The key is the flexibility in boundary
+conditions, which will allow us to interface with Wolfram rules at the
+edges.</p>
+<h2 id="spaceships-oscillators-and-static-patterns">Spaceships,
+oscillators and static patterns</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
 <p>The game leads to patterns emerging, some of these patterns are
 static, but some oscillate in place, with varying periods. Others
 oscillate, but when they complete their cycle they’ve translated to a
@@ -542,23 +601,26 @@ new location, in other words they move. In Life the former are known as
 <a href="https://conwaylife.com/wiki/Oscillator">oscillators</a> and the
 latter as <a
 href="https://conwaylife.com/wiki/Spaceship">spaceships</a>.</p>
-<h2 id="loafers-and-gliders">Loafers and Gliders</h2>
-<div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
-</div>
-<p>John Horton Conway, as the creator of the game of life, could be seen
+<h2 id="pattern-analysis">Pattern Analysis</h2>
+<p>Before looking at specific examples, let’s understand how these
+patterns behave. Life patterns can be classified by their periodic
+behavior and movement: - <em>Static patterns</em> remain unchanged from
+one generation to the next - <em>Oscillators</em> return to their
+initial state after a fixed number of generations (their period) -
+<em>Spaceships</em> combine oscillation with translation, moving across
+the grid while cycling through their states</p>
+<p>Each pattern can be characterized by: - Its period (how many steps
+before it repeats) - Its translation (how far it moves each period) -
+Its velocity (translation per period)</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span></code></pre></div>
+<p><br />
+John Horton Conway, as the creator of the game of life, could be seen
 somehow as the god of this small universe. He created the rules. The
 rules are so simple that in many senses he, and we, are all-knowing in
 this space. But despite our knowledge, this world can still ‘surprise’
-us. From the simple rules, emergent patterns of behaviour arise. These
-include static patterns that don’t change from one turn to the next.
-They also include, oscillators, that pulse between different forms
-across different periods of time. A particular form of oscillator is
-known as a ‘spaceship’, this is one that moves across the board as the
-game evolves. One of the simplest and earliest spaceships to be
-discovered is known as the glider.</p>
+us. From the simple rules, emergent patterns of behaviour arise.</p>
 <div class="figure">
 <div id="glider-loafer-conway-figure" class="figure-frame">
 <table>
@@ -569,7 +631,7 @@ discovered is known as the glider.</p>
 </center>
 <center>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
 </td>
@@ -589,8 +651,7 @@ onclick="magnifyFigure(&#39;glider-loafer-conway&#39;)">
 <p>Figure: <em>Left</em> A Glider pattern discovered 1969 by Richard K.
 Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
 (1937-2020). The glider is an oscillator that moves diagonally after
-creation. From the simple rules of Life it’s not obvious that such an
-object does exist, until you do the necessary computation.</p>
+creation.</p>
 </div>
 </div>
 <p>The glider was ‘discovered’ in 1969 by Richard K. Guy. What do we
@@ -605,7 +666,7 @@ universe once it’s been defined.</p>
 <div class="figure">
 <div id="gosper-glider-gun-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Gosperglidergun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/gosper-glider-gun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="gosper-glider-gun-magnify" class="magnify"
@@ -623,11 +684,6 @@ Gosper glider gun was <a
 href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper
 in 1970</a>. It is a pattern that creates a new glider every 30 turns of
 the game.</p>
-<p>Despite widespread interest in Life, some of its patterns were only
-very recently discovered like the Loafer, discovered in 2013 by Josh
-Ball. So, despite the game having existed for over forty years, and the
-rules of the game being simple, there are emergent behaviors that are
-unknown.</p>
 <div class="figure">
 <div id="the-loafer-spaceship-figure" class="figure-frame">
 <table>
@@ -638,7 +694,7 @@ unknown.</p>
 </center>
 <center>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
 </td>
@@ -660,6 +716,11 @@ onclick="magnifyFigure(&#39;the-loafer-spaceship&#39;)">
 (1937-2020).</p>
 </div>
 </div>
+<p>Despite widespread interest in Life, some of its patterns were only
+very recently discovered like the Loafer, discovered in 2013 by Josh
+Ball. So, despite the game having existed for over forty years, and the
+rules of the game being simple, there are emergent behaviors that are
+unknown.</p>
 <p>Once these patterns are discovered, they are combined (or engineered)
 to create new Life patterns that do some remarkable things. For example,
 there’s a life pattern that runs a Turing machine, or more remarkably
@@ -708,15 +769,60 @@ process of ‘understanding’ the physical world is so difficult. We also
 see immediately how much easier we might expect the physical sciences to
 be than the social sciences, where the emergent behaviors are contingent
 on highly complex human interactions.</p>
+<p>include{_simulation/includes/automata-base.md}</p>
+<h2 id="combining-wolfram-and-conway">Combining Wolfram and Conway</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-conway-life.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-conway-life.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>We can create an interesting hybrid system by combining Wolfram’s
+elementary cellular automata with Conway’s Game of Life. The system
+consists of a square grid where the interior follows Conway’s rules, but
+the border cells evolve according to a chosen Wolfram rule. The Wolfram
+rule wraps around the border, creating a dynamic boundary condition for
+the Life cells.</p>
 <div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>run_flowing_demonstration(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">100</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">50</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    wolfram_portion<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    wolfram_rule<span class="op">=</span><span class="dv">30</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    generations<span class="op">=</span><span class="dv">100</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    save_interval<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span></code></pre></div>
+<p>Let’s demonstrate this hybrid system with some examples. First, let’s
+see how Rule 30 interacts with a glider:</p>
+<div class="figure">
+<div id="hybrid-r30-glider-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/hybrid-r30-glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="hybrid-r30-glider-magnify" class="magnify"
+onclick="magnifyFigure(&#39;hybrid-r30-glider&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="hybrid-r30-glider-caption" class="caption-frame">
+<p>Figure: A glider pattern evolving within borders governed by Rule 30.
+Notice how the complex border patterns influence the glider’s
+behavior.</p>
+</div>
+</div>
+<p>Now let’s try a different combination - Rule 110 (another complex
+rule) with a loafer:</p>
+<div class="figure">
+<div id="hybrid-r110-loafer-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/hybrid-r110-loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="hybrid-r110-loafer-magnify" class="magnify"
+onclick="magnifyFigure(&#39;hybrid-r110-loafer&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="hybrid-r110-loafer-caption" class="caption-frame">
+<p>Figure: A loafer pattern evolving within borders governed by Rule
+110. The border patterns create a dynamic environment that affects the
+loafer’s movement.</p>
+</div>
+</div>
+<p>This hybrid system demonstrates how two different types of cellular
+automata can be combined to create new behaviours.</p>
 <h2 id="packing-problems">Packing Problems</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span
