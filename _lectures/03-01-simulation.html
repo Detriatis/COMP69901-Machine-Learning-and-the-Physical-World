@@ -768,15 +768,60 @@ process of ‘understanding’ the physical world is so difficult. We also
 see immediately how much easier we might expect the physical sciences to
 be than the social sciences, where the emergent behaviors are contingent
 on highly complex human interactions.</p>
+<p>include{_simulation/includes/automata-base.md}</p>
+<h2 id="combining-wolfram-and-conway">Combining Wolfram and Conway</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-conway-life.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-conway-life.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>We can create an interesting hybrid system by combining Wolfram’s
+elementary cellular automata with Conway’s Game of Life. The system
+consists of a square grid where the interior follows Conway’s rules, but
+the border cells evolve according to a chosen Wolfram rule. The Wolfram
+rule wraps around the border, creating a dynamic boundary condition for
+the Life cells.</p>
 <div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>run_flowing_demonstration(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">100</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">50</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    wolfram_portion<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    wolfram_rule<span class="op">=</span><span class="dv">30</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    generations<span class="op">=</span><span class="dv">100</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    save_interval<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span></code></pre></div>
+<p>Let’s demonstrate this hybrid system with some examples. First, let’s
+see how Rule 30 interacts with a glider:</p>
+<div class="figure">
+<div id="hybrid-r30-glider-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/hybrid-r30-glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="hybrid-r30-glider-magnify" class="magnify"
+onclick="magnifyFigure(&#39;hybrid-r30-glider&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="hybrid-r30-glider-caption" class="caption-frame">
+<p>Figure: A glider pattern evolving within borders governed by Rule 30.
+Notice how the complex border patterns influence the glider’s
+behavior.</p>
+</div>
+</div>
+<p>Now let’s try a different combination - Rule 110 (another complex
+rule) with a loafer:</p>
+<div class="figure">
+<div id="hybrid-r110-loafer-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/hybrid-r110-loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="hybrid-r110-loafer-magnify" class="magnify"
+onclick="magnifyFigure(&#39;hybrid-r110-loafer&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="hybrid-r110-loafer-caption" class="caption-frame">
+<p>Figure: A loafer pattern evolving within borders governed by Rule
+110. The border patterns create a dynamic environment that affects the
+loafer’s movement.</p>
+</div>
+</div>
+<p>This hybrid system demonstrates how two different types of cellular
+automata can be combined to create new behaviours.</p>
 <h2 id="packing-problems">Packing Problems</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span
