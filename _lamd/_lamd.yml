@@ -11,6 +11,7 @@ room: LT2
 venue: William Gates Building
 talkcss: https://inverseprobability.com/assets/css/talks.css
 bibdir: $HOME/lawrennd/bibliography/
+people: ../_people/people.yml
 postsdir: ../_lectures/
 slidesdir: ../slides/
 notesdir: ../_notes/

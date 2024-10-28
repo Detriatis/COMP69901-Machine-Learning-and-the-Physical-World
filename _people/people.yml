@@ -1,0 +1,136 @@
+- given: Challenger
+  family: Mishra
+  image: people/challenger-mishra.jpg
+  url: https://acceleratescience.github.io/team/challenger-mishra.html
+  title: Challenger Mishra
+
+- given: Soumya
+  family: Banerjee
+  image: people/soumya-banerjee.jpg
+  url: https://acceleratescience.github.io/team/soumya-banerjee.html
+  title: Soumya Banerjee
+
+- given: Sam
+  family: Nallaperuma
+  image: people/sam-nallaperuma.jpg
+  url: https://acceleratescience.github.io/team/sam-nallaperuma.html
+  title: Sam Nallaperuma
+
+- given: Sarah
+  family: Morgan
+  image: people/sarah-morgan.jpg
+  url: https://acceleratescience.github.io/team/sarah-morgan.html
+  title: Sarah Morgan
+
+
+- given: Diana
+  family: Robinson
+  image: people/diana-robinson.jpg
+  url: https://www.linkedin.com/in/diana-robinson/
+  title: Diana Robinson
+
+- given: David
+  family: Spiegelhalter
+  image: people/david-spiegelhalter.png
+  url: http://www.statslab.cam.ac.uk/~david/
+  title: David Spiegelhalter
+
+- given: Neil D. 
+  family: Lawrence
+  image: people/neil-lawrence.png
+  url: https://inverseprobability.com/
+  title: Neil Lawrence
+
+- given: Nicolas
+  family: Durrande
+  image: people/nicolas-durrande2.jpg
+  url: https://sites.google.com/site/nicolasdurrandehomepage/
+  title: Nicolas Durrande
+
+
+- given: Andreas
+  family: Damianou
+  image: people/andreas-damianou.png
+  title: Andreas Damianou
+
+- given: Andrei
+  family: Paleyes
+  image: people/andrei-paleyes.jpg
+  url: https://www.linkedin.com/in/andreipaleyes
+  title: Andrei Paleyes
+
+- given: Mark
+  family: Pullin
+  image: people/mark-pullin.jpg
+  url: https://www.linkedin.com/in/mark-pullin-47510b50/
+  title: Mark Pullin
+
+- given: Maren
+  family: Mahsereci
+  image: people/maren-mahsereci.png
+  url: https://pn.is.tuebingen.mpg.de/person/mmahsereci
+  title: Maren Mahsereci
+
+- given: Leah
+  family: Hirst
+  image: people/person-placeholder.jpg
+  url: https://www.linkedin.com/in/leahhirst/
+  title: Leah Hirst
+
+- given: Cliff
+  family: McCollum
+  image: people/cliff-mccollum.jpg
+  url: https://www.linkedin.com/in/cliffmccollum/
+  title: Cliff McCollum
+
+- given: Tom
+  family: Borchert
+  image: people/tom-borchert.jpg
+  url: https://www.linkedin.com/in/tomborchert/
+  title: Tom Borchert
+
+
+- given: Catherine
+  family: Breslin
+  image: people/catherine-breslin.png
+  url: https://www.linkedin.com/in/catherine-breslin-0592423a
+  title: Catherine Breslin
+
+
+- given: John
+  family: Quinn
+  image: people/john-quinn.jpg
+  url: http://cit.mak.ac.ug/staff/jquinn/
+  title: John Quinn
+
+- given: Ernest
+  family: Mwebaze
+  image: people/ernest-mwebaze.png
+  url: https://www.linkedin.com/in/emwebaze/
+  title: Ernest Mwebaze
+
+- given: Martin
+  family: Mubangizi
+  image: people/martin-mubangizi.png
+  url: https://www.linkedin.com/in/martin-mubangizi-24177111/
+  title: Martin Mubangizi
+
+- given: Morine
+  family: Amutorine
+  image: people/morine-amutorine.png
+  url: https://www.linkedin.com/in/morine-amutorine/
+  title: Morine Amutorine
+
+- given: Carl Henrik
+  family: Ek
+  image: people/carl-henrik-ek.png
+  url: https://carlhenrik.com
+  title: Carl Henrik Ek
+
+
+- given: Jessica
+  family: Montgomery
+  image: people/jessica-montgomery.jpg
+  url: https://www.linkedin.com/in/jessica-montgomery-206256144/
+  title: Jessica Montgomery
+
