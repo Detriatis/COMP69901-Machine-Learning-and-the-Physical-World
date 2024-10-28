@@ -253,6 +253,8 @@ Rule 30 expressed in pixel form.
 </div>
 <aside class="notes">
 Progression of Rule 30 with a single cell on as the initial condition.
+Notice the emergence of seemingly random patterns, particularly along
+the central column.
 </aside>
 </section>
 <section id="rule-30-in-cambridge" class="slide level2">
@@ -419,7 +421,99 @@ Birth in Conway’s life. Any position surrounded by precisely three live
 cells will give birth to a new cell at the next turn.
 </aside>
 </section>
+<section id="spaceships-oscillators-and-static-patterns"
+class="slide level2">
+<h2>Spaceships, oscillators and static patterns</h2>
+</section>
+<section id="pattern-analysis" class="slide level2">
+<h2>Pattern Analysis</h2>
+</section>
 <section id="glider" class="slide level2">
+<h2>Glider</h2>
+<div class="figure">
+<div id="glider-loafer-conway-figure" class="figure-frame">
+<table>
+<tr>
+<td width="45%">
+<center>
+<em>Glider (1969)</em>
+</center>
+<center>
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</center>
+</td>
+<td width="45%">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<aside class="notes">
+<em>Left</em> A Glider pattern discovered 1969 by Richard K. Guy.
+<em>Right</em>. John Horton Conway, creator of <em>Life</em>
+(1937-2020). The glider is an oscillator that moves diagonally after
+creation. From the simple rules of Life it’s not obvious that such an
+object does exist, until you do the necessary computation.
+</aside>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="gosper-glider-gun-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/gosper-glider-gun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The Gosper glider gun is a configuration that creates gliders. A new
+glider is released after every 30 turns.
+</aside>
+</section>
+<section id="loafer" class="slide level2">
+<h2>Loafer</h2>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="the-loafer-spaceship-figure" class="figure-frame">
+<table>
+<tr>
+<td width="45%">
+<center>
+<em>Loafer (2013)</em>
+</center>
+<center>
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</center>
+</td>
+<td width="45%">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<aside class="notes">
+<em>Left</em> A Loafer pattern discovered by Josh Ball in 2013.
+<em>Right</em>. John Horton Conway, creator of <em>Life</em>
+(1937-2020).
+</aside>
+<p>subsection{Pattern Analysis}</p>
+</section>
+<section id="pattern-analysis-1" class="slide level2">
+<h2>Pattern Analysis</h2>
+</section>
+<section id="glider-1" class="slide level2">
 <h2>Glider</h2>
 <div class="figure">
 <div id="glider-loafer-conway-figure" class="figure-frame">
@@ -452,7 +546,7 @@ creation. From the simple rules of Life it’s not obvious that such an
 object does exist, until you do the necessary computation.
 </aside>
 </section>
-<section id="section-1" class="slide level2">
+<section id="section-3" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="gosper-glider-gun-figure" class="figure-frame">
@@ -466,10 +560,10 @@ The Gosper glider gun is a configuration that creates gliders. A new
 glider is released after every 30 turns.
 </aside>
 </section>
-<section id="loafer" class="slide level2">
+<section id="loafer-1" class="slide level2">
 <h2>Loafer</h2>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section-4" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="the-loafer-spaceship-figure" class="figure-frame">
@@ -500,7 +594,7 @@ glider is released after every 30 turns.
 (1937-2020).
 </aside>
 </section>
-<section id="section-3" class="slide level2">
+<section id="section-5" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="life-in-life-figure" class="figure-frame">
@@ -518,7 +612,7 @@ spaceships. Each individual pixel in this game of life is made up of
 metapixel</a>.
 </aside>
 </section>
-<section id="section-4" class="slide level2">
+<section id="section-6" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="intro-to-life-figure" class="figure-frame">
@@ -581,7 +675,7 @@ href="https://erich-friedman.github.io/packing/"
 class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
-<section id="section-5" class="slide level2">
+<section id="section-7" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
 <img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample001.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
@@ -591,7 +685,7 @@ Here we’re showing 20 samples taken from the prior over functions
 defined by our covarariance
 </aside>
 </section>
-<section id="section-6" class="slide level2">
+<section id="section-8" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
 <img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample002.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
@@ -601,7 +695,7 @@ We can sample many such functions, in this slide there are now 1000 in
 total. This is a sample from our prior over functions.
 </aside>
 </section>
-<section id="section-7" class="slide level2">
+<section id="section-9" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
 <img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample003.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
@@ -612,7 +706,7 @@ Bayesian inference we discard all samples that are distant from the
 data.
 </aside>
 </section>
-<section id="section-8" class="slide level2">
+<section id="section-10" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
 <img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample004.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
@@ -622,7 +716,7 @@ Throwing away such samples we are left with our posterior. This is the
 collection of samples from the prior that are consistent with the data.
 </aside>
 </section>
-<section id="section-9" class="slide level2">
+<section id="section-11" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
 <img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
@@ -632,7 +726,7 @@ The elegance of the Gaussian process is that this result can be computed
 analytically using linear algebra.
 </aside>
 </section>
-<section id="section-10" class="slide level2">
+<section id="section-12" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="cosmic-microwave-background-figure" class="figure-frame">
@@ -648,7 +742,7 @@ by fundamental parameters of the universe, such as the amount of dark
 matter and mass.
 </aside>
 </section>
-<section id="section-11" class="slide level2">
+<section id="section-13" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="mollweide-sample-cmb-figure" class="figure-frame">
@@ -663,7 +757,7 @@ sampling from the relevant Gaussian process covariance (in polar
 co-ordinates).
 </aside>
 </section>
-<section id="section-12" class="slide level2">
+<section id="section-14" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="modern-universe-non-linear-function-figure"
@@ -685,7 +779,7 @@ microwave background.
 class="slide level2">
 <h2>The Universe isn’t as Gaussian as it Was</h2>
 </section>
-<section id="section-13" class="slide level2">
+<section id="section-15" class="slide level2">
 <h2></h2>
 <blockquote>
 <p>If we do discover a theory of everything … it would be the ultimate

@@ -226,6 +226,8 @@ style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/inc
 <p>Wolfram explored exhaustively the different automata, and <a
 href="But%20the%20surprising%20%5Bdiscovery%20I%20made%20in%20the%201980s%5D(https://content.wolfram.com/sw-publications/2020/07/origins-randomness-physical-systems.pdf)">discovered
 that Rule 30</a> exhibited particularly interesting behaviour.</p>
+<p>Rule 30 generates patterns that appear random, yet are completely
+deterministic.</p>
 <table>
 <thead>
 <tr class="header">
@@ -301,14 +303,12 @@ onclick="magnifyFigure(&#39;rule-030-explanation&#39;)">
 </div>
 </div>
 <div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set parameters</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> <span class="dv">101</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the cellular automaton</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ca <span class="op">=</span> rule_30(size, steps)</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set parameters</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> <span class="dv">101</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the cellular automaton</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ca <span class="op">=</span> rule_30_evolution(size<span class="op">=</span>size, steps<span class="op">=</span>steps)</span></code></pre></div>
 <div class="figure">
 <div id="rule-030-progression-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-030-progression.svg" width="70%" style=" ">
@@ -320,7 +320,8 @@ onclick="magnifyFigure(&#39;rule-030-progression&#39;)">
 </div>
 <div id="rule-030-progression-caption" class="caption-frame">
 <p>Figure: Progression of Rule 30 with a single cell on as the initial
-condition.</p>
+condition. Notice the emergence of seemingly random patterns,
+particularly along the central column.</p>
 </div>
 </div>
 <h2 id="rule-30-in-cambridge">Rule 30 in Cambridge</h2>
@@ -350,8 +351,9 @@ to be generated intrinsically</a> within a system just through the
 process of applying definite underlying rules.</p>
 </blockquote>
 <p>Wolfram refers to the pseudorandom pattern that emerges, in
-particular down the center line of hte automata as “computationally
-irreducible”.</p>
+particular down the center line of the automata as “computationally
+irreducible”. At one point this line was even used within Wolfram as a
+pseudorandom number generator.</p>
 <h2 id="game-of-life">Game of Life</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span
@@ -535,6 +537,17 @@ three live cells will give birth to a new cell at the next turn.</p>
 </div>
 <p>And that’s it. Those are the simple ‘physical laws’ for Conway’s
 game.</p>
+<h2 id="spaceships-oscillators-and-static-patterns">Spaceships,
+oscillators and static patterns</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> animation</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List</span></code></pre></div>
 <p>The game leads to patterns emerging, some of these patterns are
 static, but some oscillate in place, with varying periods. Others
 oscillate, but when they complete their cycle they’ve translated to a
@@ -542,12 +555,18 @@ new location, in other words they move. In Life the former are known as
 <a href="https://conwaylife.com/wiki/Oscillator">oscillators</a> and the
 latter as <a
 href="https://conwaylife.com/wiki/Spaceship">spaceships</a>.</p>
+<h2 id="pattern-analysis">Pattern Analysis</h2>
+<p>Before looking at specific examples, let’s understand how these
+patterns behave. Life patterns can be classified by their periodic
+behavior and movement: - <em>Static patterns</em> remain unchanged from
+one generation to the next - <em>Oscillators</em> return to their
+initial state after a fixed number of generations (their period) -
+<em>Spaceships</em> combine oscillation with translation, moving across
+the grid while cycling through their states</p>
+<p>Each pattern can be characterized by: - Its period (how many steps
+before it repeats) - Its translation (how far it moves each period) -
+Its velocity (translation per period)</p>
 <h2 id="loafers-and-gliders">Loafers and Gliders</h2>
-<div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
-</div>
 <p>John Horton Conway, as the creator of the game of life, could be seen
 somehow as the god of this small universe. He created the rules. The
 rules are so simple that in many senses he, and we, are all-knowing in
@@ -559,6 +578,141 @@ across different periods of time. A particular form of oscillator is
 known as a ‘spaceship’, this is one that moves across the board as the
 game evolves. One of the simplest and earliest spaceships to be
 discovered is known as the glider.</p>
+<div class="figure">
+<div id="glider-loafer-conway-figure" class="figure-frame">
+<table>
+<tr>
+<td width="45%">
+<center>
+<em>Glider (1969)</em>
+</center>
+<center>
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</center>
+</td>
+<td width="45%">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="glider-loafer-conway-magnify" class="magnify"
+onclick="magnifyFigure(&#39;glider-loafer-conway&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="glider-loafer-conway-caption" class="caption-frame">
+<p>Figure: <em>Left</em> A Glider pattern discovered 1969 by Richard K.
+Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
+(1937-2020). The glider is an oscillator that moves diagonally after
+creation. From the simple rules of Life it’s not obvious that such an
+object does exist, until you do the necessary computation.</p>
+</div>
+</div>
+<p>The glider was ‘discovered’ in 1969 by Richard K. Guy. What do we
+mean by discovered in this context? Well, as soon as the game of life is
+defined, objects such as the glider do somehow exist, but the many
+configurations of the game mean that it takes some time for us to see
+one and know it exists. This means, that despite being the creator,
+Conway, and despite the rules of the game being simple, and despite the
+rules being deterministic, we are not ‘omniscient’ in any simplistic
+sense. It requires computation to ‘discover’ what can exist in this
+universe once it’s been defined.</p>
+<div class="figure">
+<div id="gosper-glider-gun-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/gosper-glider-gun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="gosper-glider-gun-magnify" class="magnify"
+onclick="magnifyFigure(&#39;gosper-glider-gun&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="gosper-glider-gun-caption" class="caption-frame">
+<p>Figure: The Gosper glider gun is a configuration that creates
+gliders. A new glider is released after every 30 turns.</p>
+</div>
+</div>
+<p>These patterns had to be discovered, in the same way that a scientist
+might discover a disease, or an explorer a new land. For example, the
+Gosper glider gun was <a
+href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper
+in 1970</a>. It is a pattern that creates a new glider every 30 turns of
+the game.</p>
+<p>Despite widespread interest in Life, some of its patterns were only
+very recently discovered like the Loafer, discovered in 2013 by Josh
+Ball. So, despite the game having existed for over forty years, and the
+rules of the game being simple, there are emergent behaviors that are
+unknown.</p>
+<div class="figure">
+<div id="the-loafer-spaceship-figure" class="figure-frame">
+<table>
+<tr>
+<td width="45%">
+<center>
+<em>Loafer (2013)</em>
+</center>
+<center>
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</center>
+</td>
+<td width="45%">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="the-loafer-spaceship-magnify" class="magnify"
+onclick="magnifyFigure(&#39;the-loafer-spaceship&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="the-loafer-spaceship-caption" class="caption-frame">
+<p>Figure: <em>Left</em> A Loafer pattern discovered by Josh Ball in
+2013. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
+(1937-2020).</p>
+</div>
+</div>
+<p>The game leads to patterns emerging, some of these patterns are
+static, but some oscillate in place, with varying periods. Others
+oscillate, but when they complete their cycle they’ve translated to a
+new location, in other words they move. In Life the former are known as
+<a href="https://conwaylife.com/wiki/Oscillator">oscillators</a> and the
+latter as <a
+href="https://conwaylife.com/wiki/Spaceship">spaceships</a>.</p>
+<p>subsection{Pattern Analysis}</p>
+<p>Before looking at specific examples, let’s understand how these
+patterns behave. Life patterns can be classified by their periodic
+behavior and movement: - <em>Static patterns</em> remain unchanged from
+one generation to the next - <em>Oscillators</em> return to their
+initial state after a fixed number of generations (their period) -
+<em>Spaceships</em> combine oscillation with translation, moving across
+the grid while cycling through their states</p>
+<p>Each pattern can be characterized by: - Its period (how many steps
+before it repeats) - Its translation (how far it moves each period) -
+Its velocity (translation per period)</p>
+<h2 id="loafers-and-gliders-1">Loafers and Gliders</h2>
+<p>John Horton Conway, as the creator of the game of life, could be seen
+somehow as the god of this small universe. He created the rules. The
+rules are so simple that in many senses he, and we, are all-knowing in
+this space. But despite our knowledge, this world can still ‘surprise’
+us. From the simple rules, emergent patterns of behaviour arise. These
+include static patterns that don’t change from one turn to the next.
+They also include, oscillators, that pulse between different forms
+across different periods of time. A particular form of oscillator is
+known as a ‘spaceship’, this is one that moves across the board as the
+game evolves. One of the simplest and earliest spaceships to be
+discovered is known as the glider.</p>
+<p>We can verify these patterns computationally. For example, the Glider
+has a period of 4 steps before repeating, but translates diagonally by
+one cell in each direction. The Loafer has a period of 7 steps and moves
+horizontally by one cell each period.</p>
 <div class="figure">
 <div id="glider-loafer-conway-figure" class="figure-frame">
 <table>
