@@ -2,7 +2,6 @@
 week: 2
 session: 2
 title: "Practical Gaussian Processes"
-featured_image: slides/diagrams/gp/learning-a-manifold-of-fonts.png
 abstract:  >
   This lecture will cover the practical side to Gaussian processes.
 layout: lecture
@@ -17,6 +16,7 @@ featured_image:
 pdfslides: l48-mlpw-04.pdf
 pdfworksheet: practical-gaussian-processes.pdf
 date: 2024-10-22
+featured_image: slides/diagrams/gp/learning-a-manifold-of-fonts.png
 transition: None
 ipynb: false
 ---
