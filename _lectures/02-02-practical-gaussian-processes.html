@@ -1,7 +1,19 @@
 ---
 title: "Practical Gaussian Processes"
-abstract: "<p>This lecture will cover the practical side to Gaussian
-processes.</p>"
+abstract: "<p>Gaussian processes provide a probability measure that
+allows us to perform statistical inference over the space of functions.
+While GPs are nice as mathematical objects when we need to implement
+them in practice we often run into issues. In this worksheet we will do
+a little bit of a whirlwind tour of a couple of approaches to address
+these problems. We will look at how we can address the numerical issues
+that often appear and we will look at approximations to circumvent the
+computational cost associated with Gaussian processes. Importantly when
+continuing using these models in the course you are most likely not
+going to implement them yourself but instead use some of the many
+excellent software packages that exists. The methods that we describe
+here are going to show you how these packages implement GPs and it will
+hopefully give you an idea of the type of thinking that goes into
+implementation of machine learning models.</p>"
 author:
 - given: Carl Henrik
   family: Ek
@@ -18,6 +30,7 @@ week: 2
 session: 2
 featured_image: slides/diagrams/gp/learning-a-manifold-of-fonts.png
 transition: None
+ipynb: 02-02-practical-gaussian-processes.ipynb
 pdfslides: l48-mlpw-04.pdf
 pdfworksheet: practical-gaussian-processes.pdf
 layout: lecture
@@ -35,18 +48,383 @@ categories:
 <!--
 
 -->
-<p>processes provide a probability measure that allows us to perform
-statistical inference over the space of functions. While GPs are nice as
-mathematical objects when we need to implement them in practice we often
-run into issues. In this worksheet we will do a little bit of a
-whirlwind tour of a couple of approaches to address these problems. We
-will look at how we can address the numerical issues that often appear
-and we will look at approximations to circumvent the computational cost
-associated with Gaussian processes. Importantly when continuing using
-these models in the course you are most likely not going to implement
-them yourself but instead use some of the many excellent software
-packages that exists. The methods that we describe here are going to
-show you how these packages implement GPs and it will hopefully give you
-an idea of the type of thinking that goes into implementation of machine
-learning models.</p>
+<h2 id="setup">Setup</h2>
+<!--setupplotcode{import seaborn as sns
+sns.set_style('darkgrid')
+sns.set_context('paper')
+sns.set_palette('colorblind')}-->
+<h2 id="notutils">notutils</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>This small package is a helper package for various notebook utilities
+used below.</p>
+<p>The software can be installed using</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install notutils</span></code></pre></div>
+<p>from the command prompt where you can access your python
+installation.</p>
+<p>The code is also available on GitHub: <a
+href="https://github.com/lawrennd/notutils"
+class="uri">https://github.com/lawrennd/notutils</a></p>
+<p>Once <code>notutils</code> is installed, it can be imported in the
+usual manner.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> notutils</span></code></pre></div>
+<h2 id="pods">pods</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/pods-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/pods-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>In Sheffield we created a suite of software tools for ‘Open Data
+Science’. Open data science is an approach to sharing code, models and
+data that should make it easier for companies, health professionals and
+scientists to gain access to data science techniques.</p>
+<p>You can also check this blog post on <a
+href="http://inverseprobability.com/2014/07/01/open-data-science">Open
+Data Science</a>.</p>
+<p>The software can be installed using</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install pods</span></code></pre></div>
+<p>from the command prompt where you can access your python
+installation.</p>
+<p>The code is also available on GitHub: <a
+href="https://github.com/lawrennd/ods"
+class="uri">https://github.com/lawrennd/ods</a></p>
+<p>Once <code>pods</code> is installed, it can be imported in the usual
+manner.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pods</span></code></pre></div>
+<h2 id="mlai">mlai</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>The <code>mlai</code> software is a suite of helper functions for
+teaching and demonstrating machine learning algorithms. It was first
+used in the Machine Learning and Adaptive Intelligence course in
+Sheffield in 2013.</p>
+<p>The software can be installed using</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
+<p>from the command prompt where you can access your python
+installation.</p>
+<p>The code is also available on GitHub: <a
+href="https://github.com/lawrennd/mlai"
+class="uri">https://github.com/lawrennd/mlai</a></p>
+<p>Once <code>mlai</code> is installed, it can be imported in the usual
+manner.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlai <span class="im">import</span> plot</span></code></pre></div>
+<p>So far we have not done any type of learning with Gaussian processes.
+Learning is the process where we adapt the parameters of the model to
+the data that we observe. For a probabilistic model the object here is
+to fit the distribution of the model such that the data has high
+likelihood under the model. You can do this at many different levels,
+you can fit the parameters of the likelihood directly to data, referred
+to as maximum likelihood but in that case you have not taken into
+account the information in the prior, i.e. you are fitting the data in a
+completely unconstrained way which is likely to lead to overfitting.
+Instead we try to marginalise out as many of the parameters as we can to
+reflect the knowledge that we have of the problem and then optimise the
+remaining ones.</p>
+<p>Remember, there will always be parameters left in a model as long as
+you place a parametrised distribution that you integrate out. For
+Gaussian processes, in most practical applications, we marginalise out
+the prior over the function values, <span class="math inline">\(p(f |
+\theta)\)</span> from the likelihood to reach the marginal
+likelihood,</p>
+<p><span class="math display">\[p(y | X, \theta) = \int p(y | f)p(f | X,
+\theta)d\theta\]</span></p>
+<p>to reach the marginal likelihood which does not have <span
+class="math inline">\(f\)</span> as parameters. However, this
+distribution still has the parameters of the prior <span
+class="math inline">\(\theta\)</span> as a dependency.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+Learning now implies altering these parameters so that we find the ones
+that the probability of the observed data is maximised,</p>
+<p><span class="math display">\[\theta^* = \argmax_\theta p(y | X,
+\theta)\]</span></p>
+<p>Now let us do this specifically for a zero mean Gaussian process
+prior. We will focus on the zero mean setting as it is usually not the
+mean that gives us problems but the covariance function. However, if you
+want to have a parametrised mean function most of the things that we
+talk about will be the same. Given that most distributions you will ever
+work with is in the exponential class the normal approach to this is to
+maximise the log marginal likelihood. If we write this up for a Gaussian
+process it will have the following form,</p>
+<p><span class="math display">\[\log p(y | X, \theta) = \int p(y | f)p(f
+| X, \theta)d\theta\]</span> <span class="math display">\[ =
+-\frac{1}{2}y^T\left(k(X, X + \beta^{-1}I)\right)^{-1}y -
+\frac{1}{2}\log \det\left(k(X, X) + \beta^{-1}I\right) - \frac{N}{2}\log
+2\pi\]</span></p>
+<h1 id="numerical-stability">Numerical Stability</h1>
+<p>To address the numerical issues related to the two expressions above
+we are going to exploit that the problem that we work on is actually
+quite structured. The covariance matrix is in a class of matrices that
+are called positive-definite matrices meaning they are symmetric, full
+rank and with all eigen-values positive. This we can exploit to make
+computations better conditioned. To do so we are going to use the
+Cholesky decomposition which allows us to write a positive definite
+matrix as a product of a lower-triangular matrix and its transpose,</p>
+<p><span class="math display">\[K = LL^T\]</span></p>
+<p>Let’s first look at how the decomposition can be used to compute the
+log determinant term in the marginal log-likelihood,</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> linalg</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_logdet(K):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Compute log determinant of matrix K using Cholesky decomposition</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">    K (ndarray): Positive definite matrix</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">    float: log determinant of K</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> np.linalg.cholesky(K)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">2</span> <span class="op">*</span> np.<span class="bu">sum</span>(np.log(np.diag(L)))</span></code></pre></div>
+<p>The decomposition allows us to write:</p>
+<p><span class="math display">\[\log \det K = \log \det(LL^T) = \log
+(\det L)^2\]</span></p>
+<p>Now we have to compute the determinant of the Cholesky factor <span
+class="math inline">\(L\)</span>, this turns out to be very easy as the
+determinant of a upper/lower diagonal matrix is the product of the
+values on the diagonal,</p>
+<p><span class="math display">\[\det L = \prod_{i}
+\ell_{ii}\]</span></p>
+<p>If we put everything together we get:</p>
+<p><span class="math display">\[\log \det K = \log\left(\prod_{i}
+\ell_{ii}\right)^2 = 2\sum_{i} \ell_{ii}\]</span></p>
+<p>So the log determinant of the covariance matrix is simply the sum of
+the diagonal elements of the Cholesky factor. From our first classes in
+Computer science we know that summing lots of values of different scale
+is much better for keeping precision compared to taking the product.</p>
+<p>You can also use the Cholesky factors in order to address the term
+that includes the inverse and making this better conditioned. What we
+will do is to solve the inverse by solving two systems of linear
+equations, both who have already been made into upper and lower
+triangular form therefore being trivial to solve.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_cholesky(K, y):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Solve system Kx = y using Cholesky decomposition</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">    K (ndarray): Positive definite matrix</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">    y (ndarray): Right hand side vector</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">    ndarray: Solution x</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> np.linalg.cholesky(K)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Forward substitution</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> linalg.solve_triangular(L, y, lower<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Backward substitution </span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> linalg.solve_triangular(L.T, z, lower<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+<p>Let’s write down how this works step by step. For solving the system
+<span class="math inline">\(Ax = b\)</span>, instead of computing <span
+class="math inline">\(x = A^{-1}b\)</span> directly, we use the Cholesky
+decomposition <span class="math inline">\(A = LL^T\)</span> giving
+us:</p>
+<p><span class="math display">\[LL^Tx = b\]</span></p>
+<p>We can solve this in two steps:</p>
+<ol type="1">
+<li><p>First solve <span class="math inline">\(Lz = b\)</span> by
+forward substitution: <span class="math display">\[\begin{aligned}
+\ell_{1,1}z_1 &amp;= b_1 \\
+\ell_{2,1}z_1 + \ell_{2,2}z_2 &amp;= b_2 \\
+&amp;\vdots \\
+\ell_{n,1}z_1 + \ell_{n,2}z_2 + \ldots + \ell_{n,n}z_n &amp;= b_n
+\end{aligned}\]</span></p></li>
+<li><p>Then solve <span class="math inline">\(L^Tx = z\)</span> by
+backward substitution: <span class="math display">\[\begin{aligned}
+\ell_{n,n}x_n &amp;= z_n \\
+\ell_{n-1,n-1}x_{n-1} + \ell_{n,n-1}x_n &amp;= z_{n-1} \\
+&amp;\vdots \\
+\ell_{1,1}x_1 + \ell_{2,1}x_2 + \ldots + \ell_{n,1}x_n &amp;= z_1
+\end{aligned}\]</span></p></li>
+</ol>
+<h1 id="approximate-inference">Approximate Inference</h1>
+<p>To compute the marginal likelihood of the Gaussian process requires
+inverting a matrix that is the size of the data. As we have already seen
+this can be numerically tricky. It is also a very expensive process of
+cubic complexity which severely limits the size of data-sets that we can
+use.</p>
+<h2 id="variational-inference">Variational Inference</h2>
+<p>The key idea behind variational inference is to approximate an
+intractable posterior distribution <span
+class="math inline">\(p(x|y)\)</span> with a simpler distribution <span
+class="math inline">\(q(x)\)</span>. We do this by minimizing the KL
+divergence between these distributions.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kl_divergence(q_mean, q_cov, p_mean, p_cov):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Compute KL divergence between two multivariate Gaussians</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">    q_mean, p_mean (ndarray): Mean vectors</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">    q_cov, p_cov (ndarray): Covariance matrices</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">    float: KL(q||p)</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> <span class="bu">len</span>(q_mean)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute inverse of p_cov</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> np.linalg.cholesky(p_cov)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    p_cov_inv <span class="op">=</span> linalg.solve_triangular(L.T, </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                                      linalg.solve_triangular(L, np.eye(k), </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                                                           lower<span class="op">=</span><span class="va">True</span>), </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>                                      lower<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute terms</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    trace_term <span class="op">=</span> np.trace(p_cov_inv <span class="op">@</span> q_cov)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    mu_term <span class="op">=</span> (p_mean <span class="op">-</span> q_mean).T <span class="op">@</span> p_cov_inv <span class="op">@</span> (p_mean <span class="op">-</span> q_mean)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    logdet_term <span class="op">=</span> np.log(np.linalg.det(p_cov)) <span class="op">-</span> np.log(np.linalg.det(q_cov))</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.5</span> <span class="op">*</span> (trace_term <span class="op">+</span> mu_term <span class="op">-</span> k <span class="op">+</span> logdet_term)</span></code></pre></div>
+<p>We can derive a lower bound on the log marginal likelihood using
+Jensen’s inequality. For a convex function <span
+class="math inline">\(f\)</span>:</p>
+<p><span class="math display">\[f(\int g\,dx) \leq \int f \circ
+g\,dx\]</span></p>
+<p>For the log function (which is concave), the inequality is
+reversed:</p>
+<p><span class="math display">\[\log(\int g\,dx) \geq \int
+\log(g)\,dx\]</span></p>
+<p>Using this, we can derive the Evidence Lower BOund (ELBO):</p>
+<p><span class="math display">\[\log p(y) \geq \mathbb{E}_{q(f)}[\log
+p(y|f)] - \text{KL}(q(f)||p(f))\]</span></p>
+<h1 id="sparse-approximations">Sparse Approximations</h1>
+<p>To make GPs scalable to large datasets, we introduce inducing points
+- a smaller set of points that summarize the GP. Let’s implement this
+approach:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sparse_gp(X, y, Z, kernel, noise_var<span class="op">=</span><span class="fl">1.0</span>):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Implement sparse GP using inducing points</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">    X (ndarray): Input locations (N x D)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">    y (ndarray): Observations (N,)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Z (ndarray): Inducing point locations (M x D)</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">    kernel: Kernel function</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">    noise_var: Observation noise variance</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">    tuple: Predictive mean and variance</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute kernel matrices</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    Kuf <span class="op">=</span> kernel(Z, X)  <span class="co"># M x N</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    Kuu <span class="op">=</span> kernel(Z, Z)  <span class="co"># M x M</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute Cholesky of Kuu</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> np.linalg.cholesky(Kuu)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute intermediate terms</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> linalg.solve_triangular(L, Kuf, lower<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    AAT <span class="op">=</span> A <span class="op">@</span> A.T</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add noise variance</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    Qff <span class="op">=</span> Kuf.T <span class="op">@</span> linalg.solve(Kuu, Kuf)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute mean and variance</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    mean <span class="op">=</span> Kuf.T <span class="op">@</span> linalg.solve(Kuu <span class="op">+</span> AAT<span class="op">/</span>noise_var, </span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>                               linalg.solve(Kuu, Kuf <span class="op">@</span> y))</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    var <span class="op">=</span> kernel(X, X) <span class="op">-</span> Qff <span class="op">+</span> <span class="op">\</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>          Kuf.T <span class="op">@</span> linalg.solve(Kuu <span class="op">+</span> AAT<span class="op">/</span>noise_var, </span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>                              linalg.solve(Kuu, Kuf))</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mean, var</span></code></pre></div>
+<h1 id="software-packages">Software Packages</h1>
+<p>Several excellent software packages exist for working with Gaussian
+processes. Here’s a brief example using GPyTorch:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gpytorch</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ExactGPModel(gpytorch.models.ExactGP):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, train_x, train_y, likelihood):</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(train_x, train_y, likelihood)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mean_module <span class="op">=</span> gpytorch.means.ConstantMean()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.covar_module <span class="op">=</span> gpytorch.kernels.ScaleKernel(</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>            gpytorch.kernels.RBFKernel())</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        mean_x <span class="op">=</span> <span class="va">self</span>.mean_module(x)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        covar_x <span class="op">=</span> <span class="va">self</span>.covar_module(x)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> gpytorch.distributions.MultivariateNormal(mean_x, covar_x)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_gp(train_x, train_y, n_iterations<span class="op">=</span><span class="dv">100</span>):</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">    Train a GP model using GPyTorch</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    likelihood <span class="op">=</span> gpytorch.likelihoods.GaussianLikelihood()</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> ExactGPModel(train_x, train_y, likelihood)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use the adam optimizer</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    optimizer <span class="op">=</span> torch.optim.Adam(model.parameters(), lr<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &quot;Loss&quot; for GPs - the marginal log likelihood</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    mll <span class="op">=</span> gpytorch.mlls.ExactMarginalLogLikelihood(likelihood, model)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    model.train()</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    likelihood.train()</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_iterations):</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>        optimizer.zero_grad()</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> model(train_x)</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="op">-</span>mll(output, train_y)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model, likelihood</span></code></pre></div>
+<h1 id="summary">Summary</h1>
+<p>In this worksheet, we’ve covered the practical aspects of
+implementing Gaussian processes:</p>
+<ol type="1">
+<li>Numerical stability through Cholesky decomposition</li>
+<li>Approximate inference using variational methods</li>
+<li>Sparse approximations for scaling to larger datasets</li>
+<li>Practical implementation using modern software packages</li>
+</ol>
+<p>While GPs provide an elegant mathematical framework, making them work
+in practice requires careful attention to computational details. The
+methods we’ve discussed here form the basis of modern GP
+implementations.</p>
+<h2 id="thanks">Thanks!</h2>
+<p>For more information on these subjects and more you might want to
+check the following resources.</p>
+<ul>
+<li>book: <a
+href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The
+Atomic Human</a></li>
+<li>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></li>
+<li>podcast: <a href="http://thetalkingmachines.com">The Talking
+Machines</a></li>
+<li>newspaper: <a
+href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile
+Page</a></li>
+<li>blog: <a
+href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
+</ul>
+<h1 id="references">References</h1>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>sometimes you will hear these referred to as
+hyper-parameters.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 
