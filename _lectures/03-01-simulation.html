@@ -567,8 +567,6 @@ configuration</p>
 <p>This base implementation will be essential when we combine it with
 Wolfram automata, as we’ll need to modify the boundary conditions to
 interact with the Wolfram rules.</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
 <div class="figure">
 <div id="life-blinker-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-blinker.svg" width="80%" style=" ">
@@ -595,10 +593,6 @@ oscillators and static patterns</h2>
 class="editsection"
 style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> animation</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List</span></code></pre></div>
 <p>The game leads to patterns emerging, some of these patterns are
 static, but some oscillate in place, with varying periods. Others
 oscillate, but when they complete their cycle they’ve translated to a
@@ -617,18 +611,15 @@ the grid while cycling through their states</p>
 <p>Each pattern can be characterized by: - Its period (how many steps
 before it repeats) - Its translation (how far it moves each period) -
 Its velocity (translation per period)</p>
-<h2 id="loafers-and-gliders">Loafers and Gliders</h2>
-<p>John Horton Conway, as the creator of the game of life, could be seen
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span></code></pre></div>
+<p><br />
+John Horton Conway, as the creator of the game of life, could be seen
 somehow as the god of this small universe. He created the rules. The
 rules are so simple that in many senses he, and we, are all-knowing in
 this space. But despite our knowledge, this world can still ‘surprise’
-us. From the simple rules, emergent patterns of behaviour arise. These
-include static patterns that don’t change from one turn to the next.
-They also include, oscillators, that pulse between different forms
-across different periods of time. A particular form of oscillator is
-known as a ‘spaceship’, this is one that moves across the board as the
-game evolves. One of the simplest and earliest spaceships to be
-discovered is known as the glider.</p>
+us. From the simple rules, emergent patterns of behaviour arise.</p>
 <div class="figure">
 <div id="glider-loafer-conway-figure" class="figure-frame">
 <table>
@@ -659,8 +650,7 @@ onclick="magnifyFigure(&#39;glider-loafer-conway&#39;)">
 <p>Figure: <em>Left</em> A Glider pattern discovered 1969 by Richard K.
 Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
 (1937-2020). The glider is an oscillator that moves diagonally after
-creation. From the simple rules of Life it’s not obvious that such an
-object does exist, until you do the necessary computation.</p>
+creation.</p>
 </div>
 </div>
 <p>The glider was ‘discovered’ in 1969 by Richard K. Guy. What do we
@@ -693,11 +683,6 @@ Gosper glider gun was <a
 href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper
 in 1970</a>. It is a pattern that creates a new glider every 30 turns of
 the game.</p>
-<p>Despite widespread interest in Life, some of its patterns were only
-very recently discovered like the Loafer, discovered in 2013 by Josh
-Ball. So, despite the game having existed for over forty years, and the
-rules of the game being simple, there are emergent behaviors that are
-unknown.</p>
 <div class="figure">
 <div id="the-loafer-spaceship-figure" class="figure-frame">
 <table>
@@ -730,141 +715,11 @@ onclick="magnifyFigure(&#39;the-loafer-spaceship&#39;)">
 (1937-2020).</p>
 </div>
 </div>
-<p>The game leads to patterns emerging, some of these patterns are
-static, but some oscillate in place, with varying periods. Others
-oscillate, but when they complete their cycle they’ve translated to a
-new location, in other words they move. In Life the former are known as
-<a href="https://conwaylife.com/wiki/Oscillator">oscillators</a> and the
-latter as <a
-href="https://conwaylife.com/wiki/Spaceship">spaceships</a>.</p>
-<p>subsection{Pattern Analysis}</p>
-<p>Before looking at specific examples, let’s understand how these
-patterns behave. Life patterns can be classified by their periodic
-behavior and movement: - <em>Static patterns</em> remain unchanged from
-one generation to the next - <em>Oscillators</em> return to their
-initial state after a fixed number of generations (their period) -
-<em>Spaceships</em> combine oscillation with translation, moving across
-the grid while cycling through their states</p>
-<p>Each pattern can be characterized by: - Its period (how many steps
-before it repeats) - Its translation (how far it moves each period) -
-Its velocity (translation per period)</p>
-<h2 id="loafers-and-gliders-1">Loafers and Gliders</h2>
-<p>John Horton Conway, as the creator of the game of life, could be seen
-somehow as the god of this small universe. He created the rules. The
-rules are so simple that in many senses he, and we, are all-knowing in
-this space. But despite our knowledge, this world can still ‘surprise’
-us. From the simple rules, emergent patterns of behaviour arise. These
-include static patterns that don’t change from one turn to the next.
-They also include, oscillators, that pulse between different forms
-across different periods of time. A particular form of oscillator is
-known as a ‘spaceship’, this is one that moves across the board as the
-game evolves. One of the simplest and earliest spaceships to be
-discovered is known as the glider.</p>
-<p>We can verify these patterns computationally. For example, the Glider
-has a period of 4 steps before repeating, but translates diagonally by
-one cell in each direction. The Loafer has a period of 7 steps and moves
-horizontally by one cell each period.</p>
-<div class="figure">
-<div id="glider-loafer-conway-figure" class="figure-frame">
-<table>
-<tr>
-<td width="45%">
-<center>
-<em>Glider (1969)</em>
-</center>
-<center>
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</center>
-</td>
-<td width="45%">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div id="glider-loafer-conway-magnify" class="magnify"
-onclick="magnifyFigure(&#39;glider-loafer-conway&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="glider-loafer-conway-caption" class="caption-frame">
-<p>Figure: <em>Left</em> A Glider pattern discovered 1969 by Richard K.
-Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
-(1937-2020). The glider is an oscillator that moves diagonally after
-creation. From the simple rules of Life it’s not obvious that such an
-object does exist, until you do the necessary computation.</p>
-</div>
-</div>
-<p>The glider was ‘discovered’ in 1969 by Richard K. Guy. What do we
-mean by discovered in this context? Well, as soon as the game of life is
-defined, objects such as the glider do somehow exist, but the many
-configurations of the game mean that it takes some time for us to see
-one and know it exists. This means, that despite being the creator,
-Conway, and despite the rules of the game being simple, and despite the
-rules being deterministic, we are not ‘omniscient’ in any simplistic
-sense. It requires computation to ‘discover’ what can exist in this
-universe once it’s been defined.</p>
-<div class="figure">
-<div id="gosper-glider-gun-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Gosperglidergun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-<div id="gosper-glider-gun-magnify" class="magnify"
-onclick="magnifyFigure(&#39;gosper-glider-gun&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="gosper-glider-gun-caption" class="caption-frame">
-<p>Figure: The Gosper glider gun is a configuration that creates
-gliders. A new glider is released after every 30 turns.</p>
-</div>
-</div>
-<p>These patterns had to be discovered, in the same way that a scientist
-might discover a disease, or an explorer a new land. For example, the
-Gosper glider gun was <a
-href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper
-in 1970</a>. It is a pattern that creates a new glider every 30 turns of
-the game.</p>
 <p>Despite widespread interest in Life, some of its patterns were only
 very recently discovered like the Loafer, discovered in 2013 by Josh
 Ball. So, despite the game having existed for over forty years, and the
 rules of the game being simple, there are emergent behaviors that are
 unknown.</p>
-<div class="figure">
-<div id="the-loafer-spaceship-figure" class="figure-frame">
-<table>
-<tr>
-<td width="45%">
-<center>
-<em>Loafer (2013)</em>
-</center>
-<center>
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</center>
-</td>
-<td width="45%">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div id="the-loafer-spaceship-magnify" class="magnify"
-onclick="magnifyFigure(&#39;the-loafer-spaceship&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="the-loafer-spaceship-caption" class="caption-frame">
-<p>Figure: <em>Left</em> A Loafer pattern discovered by Josh Ball in
-2013. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
-(1937-2020).</p>
-</div>
-</div>
 <p>Once these patterns are discovered, they are combined (or engineered)
 to create new Life patterns that do some remarkable things. For example,
 there’s a life pattern that runs a Turing machine, or more remarkably
@@ -913,15 +768,15 @@ process of ‘understanding’ the physical world is so difficult. We also
 see immediately how much easier we might expect the physical sciences to
 be than the social sciences, where the emergent behaviors are contingent
 on highly complex human interactions.</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>run_flowing_demonstration(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">100</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">50</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    wolfram_portion<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    wolfram_rule<span class="op">=</span><span class="dv">30</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    generations<span class="op">=</span><span class="dv">100</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    save_interval<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>run_flowing_demonstration(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    wolfram_portion<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    wolfram_rule<span class="op">=</span><span class="dv">30</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    generations<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    save_interval<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <h2 id="packing-problems">Packing Problems</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span
@@ -1147,20 +1002,20 @@ class="uri">http://camb.readthedocs.io/en/latest/</a></li>
 href="https://healpy.readthedocs.io/en/latest/"
 class="uri">https://healpy.readthedocs.io/en/latest/</a></li>
 </ul>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> camb</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> camb</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
 <p>Now we use the theoretical power spectrum to design the covariance
 function.</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
 <p>Now we design our Universe. It is parameterized according to the <a
 href="https://en.wikipedia.org/wiki/Lambda-CDM_model"><span
 class="math inline">\(\Lambda\)</span>CDM model</a>. The variables are
@@ -1179,29 +1034,29 @@ estimated by Planck to be under 0.11. Here we set it to zero. These
 parameters are associated <a
 href="https://en.wikipedia.org/wiki/Primordial_fluctuations">with
 inflation</a>.</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
 <p>Having set the parameters, we now use the python software “Code for
 Anisotropies in the Microwave Background” to get the results.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> camb.get_results(pars)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>unlensedCL <span class="op">=</span> powers[<span class="st">&#39;unlensed_scalar&#39;</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ells <span class="op">=</span> np.arange(totCL.shape[<span class="dv">0</span>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> camb.get_results(pars)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>unlensedCL <span class="op">=</span> powers[<span class="st">&#39;unlensed_scalar&#39;</span>]</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>ells <span class="op">=</span> np.arange(totCL.shape[<span class="dv">0</span>])</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
 <div id="mollweide-sample-cmb-figure" class="figure-frame">
 <div class="centered" style="">
