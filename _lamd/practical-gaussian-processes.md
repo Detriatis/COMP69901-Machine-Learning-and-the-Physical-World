@@ -224,10 +224,12 @@ def sparse_gp(X, y, Z, kernel, noise_var=1.0):
 
 \notes{Several excellent software packages exist for working with Gaussian processes. Here's a brief example using GPyTorch:}
 
-\pythonblockstart
-import gpytorch
-import torch
+\installcode{gpytorch}
 
+\setupcode{import gpytorch
+import torch}
+
+\pythonblockstart
 class ExactGPModel(gpytorch.models.ExactGP):
     def __init__(self, train_x, train_y, likelihood):
         super().__init__(train_x, train_y, likelihood)
