@@ -94,16 +94,23 @@ rules. The rules depend on the current state of cells and their
 neighbors. We’ll explore both one-dimensional (Wolfram) and
 two-dimensional (Conway) cellular automata. First, we’ll set up some
 base functionality that both types share.</p>
-<p>These base classes and functions provide: 1. A flexible grid
-structure that works for both 1D and 2D automata 2. Consistent array
-access patterns 3. Grid visualization tools 4. Support for highlighting
-interesting cells or patterns</p>
+<p>These base classes and functions provide:</p>
+<ol type="1">
+<li>A flexible grid structure that works for both 1D and 2D
+automata</li>
+<li>Consistent array access patterns</li>
+<li>Grid visualization tools</li>
+<li>Support for highlighting interesting cells or patterns</li>
+</ol>
 <p>We’ll build on this foundation to implement both Wolfram’s elementary
 one dimensional cellular automata and later Conway’s two dimensional
 Game of Life.</p>
 <p>These diagram generation functions maintain consistent styling while
-providing specialized visualizations for: 1. Game of Life rules and
-their effects 2. Wolfram rule definitions and their outcomes</p>
+providing specialized visualizations for:</p>
+<ol type="1">
+<li>Wolfram rule definitions and their outcomes</li>
+<li>Game of Life rules and their effects</li>
+</ol>
 <p>They work with the base Grid class but provide custom layouts
 specific to teaching and explaining the rules of each system.</p>
 <h2 id="wolfram-automata">Wolfram Automata</h2>
@@ -323,31 +330,13 @@ onclick="magnifyFigure(&#39;rule-030-explanation&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="rule-030-explanation-caption" class="caption-frame">
-<p>Figure: Rule 30 expressed in pixel form.</p>
+<p>Figure: Rule 30 expressed in pixel form. Note how mixed the output
+states are compared to simpler rules.</p>
 </div>
 </div>
 <div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set parameters</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> <span class="dv">101</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the cellular automaton</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ca <span class="op">=</span> rule_30_evolution(size<span class="op">=</span>size, steps<span class="op">=</span>steps)</span></code></pre></div>
-<div class="figure">
-<div id="rule-030-progression-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-030-progression.svg" width="70%" style=" ">
-</object>
-</div>
-<div id="rule-030-progression-magnify" class="magnify"
-onclick="magnifyFigure(&#39;rule-030-progression&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="rule-030-progression-caption" class="caption-frame">
-<p>Figure: Progression of Rule 30 with a single cell on as the initial
-condition. Notice the emergence of seemingly random patterns,
-particularly along the central column.</p>
-</div>
-</div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
 <h2 id="rule-30-in-cambridge">Rule 30 in Cambridge</h2>
 <div class="figure">
 <div id="rule-030-cambridge-north-figure" class="figure-frame">
