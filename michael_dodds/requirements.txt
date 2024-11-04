@@ -1,10 +1,6 @@
-notebook==6.4.12
+notebook
 numpy
 pandas
 matplotlib
 scipy
 scikit-learn
-jupyter_contrib_nbextensions 
-jupyterlab 
-jupyterlab-lsp 
-jupyterlab_code_formatter
